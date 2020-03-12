@@ -1,0 +1,28 @@
+{
+    "projects":{
+        "master":{
+            "sprint":"sprint.2020.04",
+            "mmp":"1.18.0"
+        },
+        "develop":{
+            "sprint":"sprint.2020.05",
+            "mmp":"1.19.0"
+        },
+        "release/1.16.0":{
+            "sprint":"sprint.2020.02",
+            "mmp":"1.16.0"
+        },
+        "release/1.17.0":{
+            "sprint":"sprint.2020.03",
+            "mmp":"1.17.0"
+        },
+        "release/1.18.0":{
+            "sprint":"sprint.2020.04",
+            "mmp":"1.18.0"
+        },
+        "release/1.19.0":{
+            "sprint":"sprint.2020.05",
+            "mmp":"1.19.0"
+        }
+    }
+}
