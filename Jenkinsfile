@@ -56,12 +56,15 @@ properties([
 //  
 // Enable color console
 env.TERM = "xterm"
+
 def URL = ''
+
 def GetJsonfile(){
     //def respone =  httpRequest "${url} + raw/duydoxuan/test-ray/ver.json"
-    def response = httpRequest authentication: 'credentialsID', url: "https://raw.githubusercontent.com/duydoxuan/test-ray/master/ver.json"
+    def response = httpRequest url: "https://raw.githubusercontent.com/duydoxuan/test-ray/master/ver.json"
     return response
 }
+
 // def ParsedDayOfStart(){
 //     return {
 //         day: '',
