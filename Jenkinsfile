@@ -64,8 +64,12 @@ def GetJsonfile(){
     def response = httpRequest url: "https://raw.githubusercontent.com/duydoxuan/test-ray/master/ver.json"
     return response.content
 }
-def json = GetJsonfile()
-println (json)
+
+def calendar(){
+    Calendar now = Calendar.get.Instance()
+    println(now)
+}
+calendar()
 // def ParsedDayOfStart(){
 //     return {
 //         day: '',
