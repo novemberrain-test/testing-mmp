@@ -60,9 +60,9 @@ env.TERM = "xterm"
 def URL = ''
 
 def GetJsonfile(){
-    //def respone =  httpRequest "${url} + raw/duydoxuan/test-ray/ver.json"
-    // def response = httpRequest url: "https://raw.githubusercontent.com/duydoxuan/test-ray/master/ver.json"
-    // return response
+    def respone =  httpRequest "${url} + raw/duydoxuan/test-ray/ver.json"
+    def response = httpRequest url: "https://raw.githubusercontent.com/duydoxuan/test-ray/master/ver.json"
+    return response
     println ("ffff")
 }
 GetJsonfile()
