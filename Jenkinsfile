@@ -21,7 +21,6 @@ properties([
         daysToKeepStr: '60',
         numToKeepStr: '100'
     )),
-    [$class: 'CopyArtifactPermissionProperty', projectNames: ''],
     [$class: 'RebuildSettings',
         autoRebuild: false,
         rebuildDisabled: false
