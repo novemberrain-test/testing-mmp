@@ -21,10 +21,7 @@ properties([
         daysToKeepStr: '60',
         numToKeepStr: '100'
     )),
-    [$class: 'RebuildSettings',
-        autoRebuild: false,
-        rebuildDisabled: false
-    ],
+
     parameters([
         string(defaultValue: '01-01-2020', description: 'start of the day sprint', name: 'StartDay', trim: true),
         string(defaultValue: '01-15-2020', description: 'end of the day sprint', name: 'EndDay', trim: true),
