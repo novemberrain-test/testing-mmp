@@ -65,7 +65,7 @@ def GetJsonfile(){
     // return response
     println ("ffff")
 }
-
+println (GetJsonfile)
 // def ParsedDayOfStart(){
 //     return {
 //         day: '',
@@ -99,8 +99,8 @@ def GetJsonfile(){
     
 // }
 
-def main(){
-    println GetJsonfile
-}
+// def main(){
+//     println GetJsonfile
+// }
 
 return this
