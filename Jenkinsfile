@@ -100,7 +100,7 @@ def GetJsonfile(){
 // }
 
 def main(){
-    println GetJsonfile()
+    println GetJsonfile
 }
 
 return this
