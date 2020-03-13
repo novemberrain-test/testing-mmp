@@ -22,7 +22,6 @@ properties([
         numToKeepStr: '100'
     )),
     [$class: 'CopyArtifactPermissionProperty', projectNames: ''],
-    gitLabConnection('wrgitlab.int.net.nokia.com'),
     [$class: 'RebuildSettings',
         autoRebuild: false,
         rebuildDisabled: false
