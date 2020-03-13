@@ -96,7 +96,7 @@ def GetJsonfile(){
 // }
 
 def main(){
-    println response
+    println GetJsonfile()
 }
 
 return this
