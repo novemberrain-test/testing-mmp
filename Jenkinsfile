@@ -66,7 +66,7 @@ def GetJsonfile(){
 }
 
 def calendar(){
-    Calendar now = Calendar.get.Instance()
+    Calendar now = Calendar.getInstance()
     println(now)
 }
 calendar()
