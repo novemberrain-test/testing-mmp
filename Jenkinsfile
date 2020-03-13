@@ -48,15 +48,6 @@ properties([
         // booleanParam(defaultValue: true, description: 'Include reporting appliances', name: 'Reporting'),
         // booleanParam(defaultValue: true, description: 'Is IPv6 enabled on the CDN', name: 'IPV6'),
     ]),
-    [$class: 'ThrottleJobProperty',
-        categories: [],
-        limitOneJobWithMatchingParams: false,
-        maxConcurrentPerNode: 0,
-        maxConcurrentTotal: 0,
-        paramsToUseForLimit: '',
-        throttleEnabled: false,
-        throttleOption: 'project'
-    ],
     pipelineTriggers([
         // cron('0 H/24 * * *'),
         // pollSCM('H H/6 * * *')
