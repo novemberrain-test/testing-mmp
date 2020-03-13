@@ -58,11 +58,11 @@ properties([
 env.TERM = "xterm"
 def URL = ''
 def GetJsonfile(){
-    def respone =  httpRequest "${url} + raw/duydoxuan/test-ray/ver.json"
+    //def respone =  httpRequest "${url} + raw/duydoxuan/test-ray/ver.json"
     def response = httpRequest authentication: 'credentialsID', url: "https://raw.githubusercontent.com/duydoxuan/test-ray/master/ver.json"
     return response
 }
-println respone
+println response
 // def ParsedDayOfStart(){
 //     return {
 //         day: '',
