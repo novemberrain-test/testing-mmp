@@ -60,10 +60,9 @@ def URL = ''
 def GetJsonfile(){
     def respone =  httpRequest "${url} + raw/duydoxuan/test-ray/ver.json"
     def response = httpRequest authentication: 'credentialsID', url: "https://raw.githubusercontent.com/duydoxuan/test-ray/master/ver.json"
-
     return response
 }
-
+println respone
 // def ParsedDayOfStart(){
 //     return {
 //         day: '',
