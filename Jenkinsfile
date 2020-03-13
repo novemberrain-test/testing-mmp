@@ -11,7 +11,7 @@ def Major           = params.Major ?: '1'
 def Patch           = params.Patch ?: '0'
 def WeekOfSprint    = params.WeekOfSprint ?: '2'
 def Branch          = params.Branch ?: 'develop'
-
+def credentialsID    = 'github'
 // Pipeline properties
 properties([
     // disableConcurrentBuilds(),
@@ -58,10 +58,10 @@ properties([
 env.TERM = "xterm"
 def URL = ''
 def GetJsonfile(){
-    def url   = "http://github.com"
-    def token = "dL3JY3Mhqxfse9tU7pFy"
     def respone =  httpRequest "${url} + raw/duydoxuan/test-ray/ver.json"
-    return jsonfile
+    def response = httpRequest authentication: 'credentialsID', url: "https://raw.githubusercontent.com/duydoxuan/test-ray/master/ver.json"
+
+    return response
 }
 
 // def ParsedDayOfStart(){
