@@ -76,7 +76,10 @@ def calendar(){
     println(month)
 }
 
-
+calendar()
+def json = GetJsonfile()
+println json.getClass()
+println(json)
 // def ParsedDayOfStart(){
 //     return {
 //         day: '',
