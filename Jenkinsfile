@@ -57,7 +57,7 @@ properties([
 // Enable color console
 env.TERM = "xterm"
 
-def URL = ''
+def URL = 'h'
 
 def GetJsonfile(){
     // def respone =  httpRequest "${url} + raw/duydoxuan/test-ray/ver.json"
