@@ -1,4 +1,5 @@
 #!/usr/bin/env groovy
+import groovy.json.JsonSlurper 
 // latestRelease  = branch.develop
 // branch.develop = 
 // def Node = "node_template" 
@@ -76,7 +77,8 @@ def calendar(){
 
 calendar()
 def json = GetJsonfile()
-println(json.projects.master)
+json = json.toJson
+println(json)
 
 // def ParsedDayOfStart(){
 //     return {
