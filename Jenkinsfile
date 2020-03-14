@@ -73,7 +73,7 @@ def calendar(){
 
 calendar()
 def json = GetJsonfile()
-println(json.projects)
+println(json)
 
 // def ParsedDayOfStart(){
 //     return {
