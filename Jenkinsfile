@@ -63,7 +63,8 @@ def URL = ''
 def GetJsonfile(){
     // def respone =  httpRequest "${url} + raw/duydoxuan/test-ray/ver.json"
     def response = httpRequest url: "https://raw.githubusercontent.com/duydoxuan/test-ray/master/ver.json"
-    return response.content
+    def jsonfile = readJSON text : response
+    return jsonfile
 }
 
 def calendar(){
@@ -75,10 +76,6 @@ def calendar(){
     println(month)
 }
 
-calendar()
-def json = GetJsonfile()
-println json.getClass()
-println(json)
 
 // def ParsedDayOfStart(){
 //     return {
