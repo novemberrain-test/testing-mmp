@@ -77,7 +77,7 @@ def calendar(){
 }
 
 calendar()
-def json = GetJsonfile()
+GetJsonfile()
 println json.getClass()
 println(json)
 // def ParsedDayOfStart(){
