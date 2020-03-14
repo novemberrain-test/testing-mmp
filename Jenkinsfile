@@ -67,9 +67,11 @@ def GetJsonfile(){
 
 def calendar(){
     Calendar now = Calendar.getInstance()
-    println (now.YEAR)
-    println (now.MONTH)
+    int year = now.get(Calendar.YEAR);
+    int month = now.get(Calendar.MONTH) + 1; // Note: zero based!
     println(now)
+    println(year)
+    println(month)
 }
 
 calendar()
