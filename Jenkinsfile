@@ -67,11 +67,14 @@ def GetJsonfile(){
 
 def calendar(){
     Calendar now = Calendar.getInstance()
+    println (Calendar.YEAR)
     println(now)
 }
+
 calendar()
 def json = GetJsonfile()
-println(json)
+println(json.projects)
+
 // def ParsedDayOfStart(){
 //     return {
 //         day: '',
