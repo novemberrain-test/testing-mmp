@@ -63,7 +63,7 @@ def URL = ''
 def GetJsonfile(){
     // def respone =  httpRequest "${url} + raw/duydoxuan/test-ray/ver.json"
     def response = httpRequest url: "https://raw.githubusercontent.com/duydoxuan/test-ray/master/ver.json"
-    def jsonfile = readJSON text : response
+    def jsonfile = readJSON text : response.content
     return jsonfile
 }
 
