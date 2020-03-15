@@ -82,7 +82,7 @@ def version = [:]
 def parserJsonfile(){
     
 } 
-def revert()
+//def revert()
 // def ParsedDayOfStart(){
 //     return {
 //         day: '',
