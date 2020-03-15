@@ -1,5 +1,6 @@
 #!/usr/bin/env groovy
-import groovy.json.JsonSlurper 
+import groovy.json.JsonBuilder
+import groovy.json.JsonSlurper
 // latestRelease  = branch.develop
 // branch.develop = 
 // def Node = "node_template" 
@@ -84,9 +85,14 @@ println GetJsonfile().projects.master
         //     ;
         // }
 def parserJsonfile(){
+    //def jsonFile = new File ("${WORKSPACE/version.json}")
+    def slurped = new JsonSlurper().parseText(GetJsonfile())
+    println slurped
     GetJsonfile().each { k,v -> println "key=${k}:value=${v}" 
         v.each { key,value ->println  "key=${key}:value=${value}" }
-
+            if (key == 'master'){
+                
+        } 
     }
 } 
 parserJsonfile()
