@@ -84,17 +84,13 @@ println GetJsonfile().projects.master
         // if (Patch) {
         //     ;
         // }
-
 def parserJsonfile(){
-    def object = new JsonSlurper().parseText(GetJsonfile())
-     if(object instanceof groovy.json.internal.LazyMap) {
-      return new HashMap<>(object)
-  }
-  println object
+    def jsonFile = new File ("${WORKSPACE/version.json}")
+    writeJSON file: 'version.json', json:  GetJsonfile()
+    sh 'cat version.json'
     GetJsonfile().each { k,v -> println "key=${k}:value=${v}" 
         v.each { key,value ->println  "key=${key}:value=${value}" }
-            if (key == 'master'){
-                
+            if (key == 'master'){               
         } 
     }
 } 
