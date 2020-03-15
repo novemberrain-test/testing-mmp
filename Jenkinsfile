@@ -92,7 +92,7 @@ def parserJsonfile(){
     GetJsonfile().each { k,v -> println "key=${k}:value=${v}" 
         v.each { key,value ->println  "key=${key}:value=${value}" 
             if (key == 'master'){              
-                 ;
+                 println "abcfsdfsdfds"
                 } 
             }
         } 
