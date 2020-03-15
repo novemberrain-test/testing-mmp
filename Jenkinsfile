@@ -85,15 +85,17 @@ println GetJsonfile().projects.master
         //     ;
         // }
 def parserJsonfile(){
+    node('master'){
     def jsonFile = new File ("${env.WORKSPACE}/version.json}")
     writeJSON file: 'version.json', json:  GetJsonfile()
     sh 'cat version.json'
     GetJsonfile().each { k,v -> println "key=${k}:value=${v}" 
         v.each { key,value ->println  "key=${key}:value=${value}" }
             if (key == 'master'){               
-        } 
-    }
-} 
+            } 
+        }
+    } 
+}
 parserJsonfile()
 def revert(){  //add params later
     ;
