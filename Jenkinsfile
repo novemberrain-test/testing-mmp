@@ -84,7 +84,6 @@ println GetJsonfile().projects.master
         // if (Patch) {
         //     ;
         // }
-@NonCPS
 def parserJsonfile(){
     //def jsonFile = new File ("${WORKSPACE/version.json}")
     def object = new JsonSlurper().parseText(GetJsonfile())
