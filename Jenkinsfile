@@ -15,6 +15,8 @@ def Branch                  = params.Branch ?: 'develop'
 def credentialsID           = 'github'
 def dayOfWeekToStartSprint  = ''    // value to check so we can get the active_sprint value
 def Revert                  = false
+def version                 = [:]
+
 // Pipeline properties
 properties([
     // disableConcurrentBuilds(),
@@ -80,7 +82,6 @@ def calendar(){
 //calendar()
 println GetJsonfile().projects.master
 def parserJsonfile(){
-    def version = [:]
     // GetJsonfile().each { k,v -> println "key=${k}:value=${v}" 
         if (Patch) {
             ;
