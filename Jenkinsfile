@@ -58,7 +58,7 @@ properties([
 // Enable color console
 env.TERM = "xterm"
 
-def URL = ''
+def URL = 'g'
 
 def GetJsonfile(){
     // def respone =  httpRequest "${url} + raw/duydoxuan/test-ray/ver.json"
@@ -75,10 +75,16 @@ def calendar(){
     println(year)
     println(month)
 }
-
 calendar()
 println GetJsonfile()
-println json.getClass()
+def version = {
+    major = '',
+    minor = '',
+    patch = ''  
+}
+def parserJsonfile(){
+    
+} 
 // def ParsedDayOfStart(){
 //     return {
 //         day: '',
