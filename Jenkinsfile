@@ -79,7 +79,7 @@ def calendar(){
 //calendar()
 //println GetJsonfile()
 def version = [:]
-def parserJsonfile(){
+def main(){
     // GetJsonfile().each { k,v -> println "key=${k}:value=${v}" 
         if (Patch) {
             ;
@@ -88,7 +88,7 @@ def parserJsonfile(){
 
     // }
 } 
-parserJsonfile()
+//parserJsonfile()
 //def revert()
 // def ParsedDayOfStart(){
 //     return {
