@@ -77,7 +77,7 @@ def calendar(){
 }
 calendar()
 println GetJsonfile()
-def version = []
+def version = [
     major = '',
     minor = '',
     patch = ''  
