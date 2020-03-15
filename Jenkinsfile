@@ -4,15 +4,16 @@ import groovy.json.JsonSlurper
 // branch.develop = 
 // def Node = "node_template" 
 
-def StartDay        = params.StartDay ?: '01-01-2020'
-def EndDay          = params.EndDay ?: 'end-day'
-def CurrentSprint   = params.CurrentSprint ?: ''
-def Minor           = params.Minor ?: ''
-def Major           = params.Major ?: '1'
-def Patch           = params.Patch ?: '0'
-def WeekOfSprint    = params.WeekOfSprint ?: '2'
-def Branch          = params.Branch ?: 'develop'
-def credentialsID    = 'github'
+def StartDay                = params.StartDay ?: '01-01-2020'
+def EndDay                  = params.EndDay ?: 'end-day'
+def CurrentSprint           = params.CurrentSprint ?: ''
+def Minor                   = params.Minor ?: ''
+def Major                   = params.Major ?: ''
+def Patch                   = params.Patch ?: ''
+def WeekOfSprint            = params.WeekOfSprint ?: '2'
+def Branch                  = params.Branch ?: 'develop'
+def credentialsID           = 'github'
+def dayOfWeekToStartSprint  = ''    // value to check so we can get the active_sprint value
 // Pipeline properties
 properties([
     // disableConcurrentBuilds(),
@@ -79,7 +80,12 @@ def calendar(){
 //println GetJsonfile()
 def version = [:]
 def parserJsonfile(){
-    GetJsonfile().each { k,v -> println "key=${k}:value=${v}" 
+    GetJsonfile.each { k,v -> println "key=${k}:value=${v}" 
+        if (Patch) {
+            ;
+        }
+
+
     }
 } 
 parserJsonfile()
