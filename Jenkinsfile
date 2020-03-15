@@ -85,7 +85,7 @@ println GetJsonfile().projects.master
         //     ;
         // }
 def parserJsonfile(){
-    def jsonFile = new File ("${WORKSPACE}/version.json}")
+    def jsonFile = new File ("${env.WORKSPACE}/version.json}")
     writeJSON file: 'version.json', json:  GetJsonfile()
     sh 'cat version.json'
     GetJsonfile().each { k,v -> println "key=${k}:value=${v}" 
