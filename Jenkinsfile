@@ -60,7 +60,7 @@ properties([
 // Enable color console
 env.TERM = "xterm"
 
-def URL = 'g'
+//if (Revert && )
 
 def GetJsonfile(){
     // def respone =  httpRequest "${url} + raw/duydoxuan/test-ray/ver.json"
@@ -85,7 +85,7 @@ def parserJsonfile(){
         if (Patch) {
             ;
         }
-
+        println Revert
         return version
 
     // }
