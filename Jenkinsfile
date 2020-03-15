@@ -82,6 +82,7 @@ def parserJsonfile(){
     GetJsonfile().each { k,v -> println "key=${k}:value=${v}" 
     }
 } 
+parserJsonfile()
 //def revert()
 // def ParsedDayOfStart(){
 //     return {
