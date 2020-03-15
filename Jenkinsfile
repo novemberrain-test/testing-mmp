@@ -81,12 +81,13 @@ def calendar(){
 }
 //calendar()
 println GetJsonfile().projects.master
+def slurped = new JsonSlurper().parseText(GetJsonfile())
+
         // if (Patch) {
         //     ;
         // }
 def parserJsonfile(){
     //def jsonFile = new File ("${WORKSPACE/version.json}")
-    def slurped = new JsonSlurper().parseText(GetJsonfile())
     println slurped
     GetJsonfile().each { k,v -> println "key=${k}:value=${v}" 
         v.each { key,value ->println  "key=${key}:value=${value}" }
