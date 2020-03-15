@@ -80,14 +80,13 @@ def calendar(){
 }
 //calendar()
 println GetJsonfile().projects.master
+        // if (Patch) {
+        //     ;
+        // }
 def parserJsonfile(){
     GetJsonfile().each { k,v -> println "key=${k}:value=${v}" 
-        if (Patch) {
-            ;
-        }
-    println (Major)
-    println (Minor)
-    println (Patch)
+        v.each { key,value ->println  "key=${key}:value=${value}" }
+
     }
 } 
 parserJsonfile()
