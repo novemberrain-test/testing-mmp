@@ -78,7 +78,7 @@ def calendar(){
     println(month)
 }
 //calendar()
-println GetJsonfile()
+println GetJsonfile().projects.master
 def parserJsonfile(){
     def version = [:]
     // GetJsonfile().each { k,v -> println "key=${k}:value=${v}" 
