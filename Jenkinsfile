@@ -84,7 +84,7 @@ println GetJsonfile().projects.master
         // if (Patch) {
         //     ;
         // }
-@NonCPS
+
 def parserJsonfile(){
     def object = new JsonSlurper().parseText(GetJsonfile())
      if(object instanceof groovy.json.internal.LazyMap) {
