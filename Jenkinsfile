@@ -87,7 +87,7 @@ println GetJsonfile().projects.master
 @NonCPS
 def parserJsonfile(){
     //def jsonFile = new File ("${WORKSPACE/version.json}")
-    def object = new JsonSlurper().parseText(json)
+    def object = new JsonSlurper().parseText(GetJsonfile())
     println object
     GetJsonfile().each { k,v -> println "key=${k}:value=${v}" 
         v.each { key,value ->println  "key=${key}:value=${value}" }
