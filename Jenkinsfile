@@ -75,12 +75,12 @@ def calendar(){
     println(year)
     println(month)
 }
-calendar()
+//calendar()
 //println GetJsonfile()
-GetJsonfile().each { k,v -> println "${k}:${v}" }
 def version = [:]
 def parserJsonfile(){
-    
+    GetJsonfile().each { k,v -> println "key=${k}:value=${v}" 
+    }
 } 
 //def revert()
 // def ParsedDayOfStart(){
