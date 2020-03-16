@@ -91,8 +91,7 @@ def parserJsonfile(branch, patch, jsonfile, major, revert=false){
             for (i in listBranch){          
                 if (revert && key =~ i && major) {            
                     total = getMajor[1].toInteger() + 1
-                }
-                println getMajor[1].toInteger()                
+                }               
             }
         }
     } 
