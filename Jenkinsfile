@@ -35,7 +35,7 @@ properties([
         string(defaultValue: '1', description: 'major', name: 'Major', trim: true),
         string(defaultValue: '0', description: 'Patch ', name: 'Patch', trim: true),
         string(defaultValue: '', description: 'Week Of Sprint', name: 'WeekOfSprint', trim: true),
-        string(defaultValue: 'develop', description: 'branch', name: 'Branch', trim: true),
+        string(defaultValue: 'master,develop,release', description: 'branch', name: 'Branch', trim: true),
         booleanParam(defaultValue: false, description: 'revert version', name: 'Revert'),
     ]),
     pipelineTriggers([
