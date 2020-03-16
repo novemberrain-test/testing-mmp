@@ -85,9 +85,10 @@ def parserJsonfile(Branch, Patch, Jsonfile, Major){
     def listBranch = Branch.split(",") 
     Jsonfile.each { k,v -> 
         v.each { key,value -> println "${key} : ${value}" 
-            for (i in listBranch){
-                if (key =~ i){            
-                    println value.sprint
+            def getMajor = value.mmp.split(".").[0]
+            println getMajor
+            for (i in listBranch){          
+                if (key =~ i && {            
                     println value.mmp
                     println "hello"
                 } 
