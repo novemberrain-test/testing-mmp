@@ -82,8 +82,9 @@ def main(){
 stage("testing"){
     node("master"){
     def jsonFile = new File ("${env.WORKSPACE}/version.json}")
+    
     writeJSON file: jsonFile, json:  GetJsonfile()
-    parserJsonfile(Branch, Patch, jsonFile)
+    println parserJsonfile(Branch, Patch, jsonFile)
     sh 'cat version.json'  
     }
   }
