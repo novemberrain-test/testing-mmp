@@ -69,7 +69,6 @@ def calendar(){
         // if (Patch) {
         //     ;
         // }
-        println Branch.getClass()
 def parserJsonfile(Branch, Patch, Jsonfile){
     Jsonfile.each { k,v -> 
         v.each { key,value ->
@@ -85,7 +84,7 @@ def revert(branch){  //add params later
     ;
 }
 def main(){
-    //def jsonfile = GetJsonfile()
+    def branch
     stage("testing"){
         node("master"){
     // def File = new File ("${env.WORKSPACE}/version.json}")
