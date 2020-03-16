@@ -26,7 +26,6 @@ properties([
         daysToKeepStr: '60',
         numToKeepStr: '100'
     )),
-
     parameters([
         string(defaultValue: '01-01-2020', description: 'start of the day sprint', name: 'StartDay', trim: true),
         string(defaultValue: '01-15-2020', description: 'end of the day sprint', name: 'EndDay', trim: true),
@@ -76,31 +75,32 @@ def element (major){
     ;
 }
 def incrementSprintAndVersion (branch, patch){
-    ;
+    
 }
 def revert(branch , patch){  //add paramsf later
     ;
 }
-def parserJsonfile(branch, patch, jsonfile, major){
+
+def parserJsonfile(branch, patch, jsonfile, major, revert=false){
     def listBranch = branch.split(",") 
     jsonfile.each { k,v -> 
         v.each { key,value -> println "${key} : ${value}" 
             def getMajor = value.mmp ; getMajor.split(".")
             for (i in listBranch){          
-                if (key =~ i) {            
-                    println value.mmp
-                    println "hello"
+                if (revert && key =~ i && major) {            
+                    getMajor += 1  
                 } 
             }
         }
     } 
+    println jsonfile
 }
 
 def main(){
     stage("testing"){
         node("master"){
     // def File = new File ("${env.WORKSPACE}/version.json}")
-        parserJsonfile(Branch, Patch, GetJsonfile(),Major)
+        parserJsonfile(Branch, Patch, GetJsonfile(),params.Major)
     // writeJSON file: File, json:  GetJsonfile()
     // sh 'cat version.json'  
         }
