@@ -73,7 +73,7 @@ def parserJsonfile(Branch, Patch, Jsonfile){
     def listBranch = Branch.split(",") 
     Jsonfile.each { k,v -> 
         v.each { key,value ->
-            for (i in listBranch){
+            for (key in listBranch){
                 if (key == i){              
                     println "hello"
                 } 
