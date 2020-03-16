@@ -78,7 +78,7 @@ def parserJsonfile(branch, Patch, Jsonfile){
             }
         } 
 }
-parserJsonfile(branch, Patch, jsonFile)
+parserJsonfile(branch, Patch, Jsonfile)
 def main(){
 stage("testing"){
     node("master"){
