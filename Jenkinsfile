@@ -78,7 +78,7 @@ def element (){
 def increment (branch){
     ;
 }
-def revert(branch){  //add params later
+def revert(branch){  //add paramsf later
     ;
 }
 def parserJsonfile(Branch, Patch, Jsonfile, Major){
