@@ -70,10 +70,9 @@ def calendar(){
         //     ;
         // }
 def listBranch = Branch.split(",") 
-println listBranch
+println ("alo ${listBranch}")
 def parserJsonfile(Branch, Patch, Jsonfile){
     def listBranch = Branch.split(",") 
-    println listBranch
     Jsonfile.each { k,v -> 
         v.each { key,value ->
             for (i in listBranch){
