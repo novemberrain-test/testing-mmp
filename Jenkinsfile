@@ -4,7 +4,7 @@ import groovy.json.JsonSlurper
 // latestRelease  = branch.develop
 // branch.develop = 
 // def Node = "node_template" 
-
+//6eaaa6ec68dd4c5a94b97658362dadcb
 def StartDay                = params.StartDay ?: '01-01-2020'
 def EndDay                  = params.EndDay ?: 'end-day'
 def CurrentSprint           = params.CurrentSprint ?: ''
