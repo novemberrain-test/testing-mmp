@@ -64,15 +64,19 @@ def calendar(){
     println(year)
     println(month)
 }
-alo = GetJsonfile()
-println (alo.value())
+//calendar()
+//println GetJsonfile().projects.master
+        // if (Patch) {
+        //     ;
+        // }
 def parserJsonfile(Branch, Patch, Jsonfile){
-    value =  Jsonfile.value()
-        value.each { key,value ->  
+    Jsonfile.each { k,v -> 
+        v.each { key,value ->
             if (key == 'master'){              
                 println "hello"
-        } 
-    }
+            } 
+        }
+    } 
 }
 def revert(branch){  //add params later
     ;
