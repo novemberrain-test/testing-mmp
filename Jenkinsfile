@@ -69,6 +69,8 @@ def calendar(){
         // if (Patch) {
         //     ;
         // }
+def listBranch = Branch.split(",") 
+println listBranch
 def parserJsonfile(Branch, Patch, Jsonfile){
     def listBranch = Branch.split(",") 
     println listBranch
