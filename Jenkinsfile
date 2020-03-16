@@ -78,6 +78,9 @@ def parserJsonfile(Branch, Patch, Jsonfile){
         }
     } 
 }
+def revert(branch){  //add params later
+    ;
+}
 def main(){
 stage("testing"){
     node("master"){
@@ -89,9 +92,7 @@ stage("testing"){
     }
   }
 }
-def revert(branch){  //add params later
-    ;
-}
+
 // def ParsedDayOfStart(){
 //     return {
 //         day: '',
