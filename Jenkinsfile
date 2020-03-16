@@ -72,9 +72,11 @@ def calendar(){
 def parserJsonfile(Branch, Patch, Jsonfile){
     Jsonfile.each { k,v -> 
         v.each { key,value ->
-            if (key == 'master'){              
-                println "hello"
-            } 
+            for (i in Branch){
+                if (key == i){              
+                    println "hello"
+                } 
+            }
         }
     } 
 }
