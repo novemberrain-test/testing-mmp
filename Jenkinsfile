@@ -70,9 +70,10 @@ def calendar(){
         //     ;
         // }
 def parserJsonfile(Branch, Patch, Jsonfile){
+    def listBranch = Branch.join(",") 
     Jsonfile.each { k,v -> 
         v.each { key,value ->
-            for (i in Branch){
+            for (i in listBranch){
                 if (key == i){              
                     println "hello"
                 } 
@@ -84,7 +85,6 @@ def revert(branch){  //add params later
     ;
 }
 def main(){
-    def branch
     stage("testing"){
         node("master"){
     // def File = new File ("${env.WORKSPACE}/version.json}")
