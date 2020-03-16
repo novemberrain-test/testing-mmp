@@ -90,8 +90,8 @@ def parserJsonfile(branch, patch, jsonfile, major, revert=false){
             for (i in listBranch){          
                 if (revert && key =~ i && major) {            
                     getMajor += 1 
-                    println getMajor
-                } 
+                }
+                println getMajor                
             }
         }
     } 
