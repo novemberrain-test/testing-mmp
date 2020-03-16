@@ -72,22 +72,20 @@ def calendar(){
 // def listBranch = Branch.split(",") 
 // println ("alo ${listBranch}")
 //if (key =~ i && int(value.mmp[Major][]) == )
-def element (){
+def element (major){
     ;
 }
-def increment (branch){
+def incrementSprintAndVersion (branch, patch){
     ;
 }
-def revert(branch){  //add paramsf later
+def revert(branch , patch){  //add paramsf later
     ;
 }
-def parserJsonfile(Branch, Patch, Jsonfile, Major){
-    def listBranch = Branch.split(",") 
-    Jsonfile.each { k,v -> 
+def parserJsonfile(branch, patch, jsonfile, major){
+    def listBranch = branch.split(",") 
+    jsonfile.each { k,v -> 
         v.each { key,value -> println "${key} : ${value}" 
             def getMajor = value.mmp ; getMajor.split(".")
-            println(getMajor[0])
-            println getMajor
             for (i in listBranch){          
                 if (key =~ i) {            
                     println value.mmp
