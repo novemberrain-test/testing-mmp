@@ -70,7 +70,7 @@ def calendar(){
         //     ;
         // }
 def parserJsonfile(Branch, Patch, Jsonfile){
-    GetJsonfile().each { k,v -> println "key=${k}:value=${v}" 
+    Jsonfile.each { k,v -> println "key=${k}:value=${v}" 
         v.each { key,value ->println  "key=${key}:value=${value}" 
             if (key == 'master'){              
                 println "hello"
@@ -84,9 +84,10 @@ def revert(branch){  //add params later
 def main(){
 stage("testing"){
     node("master"){
-    def jsonFile = new File ("${env.WORKSPACE}/version.json}")
-    parserJsonfile(Branch, Patch, jsonFile)
-    writeJSON file: jsonFile, json:  GetJsonfile()
+    def Jsonfile = GetJsonfile()
+    def File = new File ("${env.WORKSPACE}/version.json}")
+    parserJsonfile(Branch, Patch, File)
+    writeJSON file: File, json:  GetJsonfile()
     sh 'cat version.json'  
     }
   }
