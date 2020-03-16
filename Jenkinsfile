@@ -88,7 +88,7 @@ def parserJsonfile(Branch, Patch, Jsonfile, Major){
             def getMajor = value.mmp.split(".")
             println getMajor
             for (i in listBranch){          
-                if (key =~ i && {            
+                if (key =~ i) {            
                     println value.mmp
                     println "hello"
                 } 
@@ -101,7 +101,7 @@ def main(){
     stage("testing"){
         node("master"){
     // def File = new File ("${env.WORKSPACE}/version.json}")
-        parserJsonfile(Branch, Patch, GetJsonfile())
+        parserJsonfile(Branch, Patch, GetJsonfile(),Major)
     // writeJSON file: File, json:  GetJsonfile()
     // sh 'cat version.json'  
         }
