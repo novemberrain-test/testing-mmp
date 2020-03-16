@@ -73,7 +73,7 @@ def parserJsonfile(branch, Patch=false, Jsonfile){
     GetJsonfile().each { k,v -> println "key=${k}:value=${v}" 
         v.each { key,value ->println  "key=${key}:value=${value}" 
             if (key == 'master'){              
-                echo "hello"
+                println "hello"
                 } 
             }
         } 
