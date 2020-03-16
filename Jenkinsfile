@@ -69,7 +69,7 @@ def calendar(){
         // if (Patch) {
         //     ;
         // }
-def parserJsonfile(branch, Patch=false, Jsonfile){
+def parserJsonfile(branch, Patch, Jsonfile){
     GetJsonfile().each { k,v -> println "key=${k}:value=${v}" 
         v.each { key,value ->println  "key=${key}:value=${value}" 
             if (key == 'master'){              
@@ -78,6 +78,7 @@ def parserJsonfile(branch, Patch=false, Jsonfile){
             }
         } 
 }
+parserJsonfile(branch, Patch, jsonFile)
 def main(){
 stage("testing"){
     node("master"){
