@@ -82,15 +82,16 @@ def revert(branch){  //add params later
     ;
 }
 def main(){
-stage("testing"){
-    node("master"){
-    def Jsonfile = GetJsonfile()
-    def File = new File ("${env.WORKSPACE}/version.json}")
-    parserJsonfile(Branch, Patch, Jsonfile)
-    writeJSON file: File, json:  GetJsonfile()
-    sh 'cat version.json'  
+    def jsonfile = GetJsonfile()
+    stage("testing"){
+        node("master"){
+        println jsonfile
+    // def File = new File ("${env.WORKSPACE}/version.json}")
+        parserJsonfile(Branch, Patch, jsonfile)
+    // writeJSON file: File, json:  GetJsonfile()
+    // sh 'cat version.json'  
+        }
     }
-  }
 }
 
 // def ParsedDayOfStart(){
