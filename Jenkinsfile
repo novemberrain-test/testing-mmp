@@ -64,7 +64,8 @@ def calendar(){
     println(year)
     println(month)
 }
-
+alo = GetJsonfile()
+println (alo.value())
 def parserJsonfile(Branch, Patch, Jsonfile){
     value =  Jsonfile.value()
         value.each { key,value ->  
