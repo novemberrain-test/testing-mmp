@@ -69,6 +69,7 @@ def calendar(){
         // if (Patch) {
         //     ;
         // }
+        println Branch
 def parserJsonfile(Branch, Patch, Jsonfile){
     Jsonfile.each { k,v -> 
         v.each { key,value ->
