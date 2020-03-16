@@ -93,7 +93,7 @@ def main(){
         }
     }
 }
-
+main()
 // def ParsedDayOfStart(){
 //     return {
 //         day: '',
