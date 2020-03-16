@@ -74,11 +74,10 @@ def parserJsonfile(branch, Patch, Jsonfile){
         v.each { key,value ->println  "key=${key}:value=${value}" 
             if (key == 'master'){              
                 println "hello"
-                } 
-            }
-        } 
+            } 
+        }
+    } 
 }
-parserJsonfile(branch, Patch, Jsonfile)
 def main(){
 stage("testing"){
     node("master"){
@@ -87,7 +86,7 @@ stage("testing"){
     sh 'cat version.json'
     parserJsonfile(branch, Patch, jsonFile)
     }
- }
+  }
 }
 def revert(branch){  //add params later
     ;
