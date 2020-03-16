@@ -74,7 +74,7 @@ def calendar(){
 def parserJsonfile(Branch, Patch, Jsonfile){
     def listBranch = Branch.split(",") 
     Jsonfile.each { k,v -> 
-        v.each { key,value ->
+        v.each { key,value -> println "${key} : ${value}" 
             for (i in listBranch){
                 if (key == i){              
                     println "hello"
