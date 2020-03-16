@@ -76,7 +76,7 @@ def parserJsonfile(Branch, Patch, Jsonfile){
     Jsonfile.each { k,v -> 
         v.each { key,value -> println "${key} : ${value}" 
             for (i in listBranch){
-                if (key == i){              
+                if (key =~ i){              
                     println "hello"
                 } 
             }
