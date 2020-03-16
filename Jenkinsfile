@@ -69,7 +69,7 @@ def calendar(){
         // if (Patch) {
         //     ;
         // }
-def parserJsonfile(branch, Patch, Jsonfile){
+def parserJsonfile(Branch, Patch, Jsonfile){
     GetJsonfile().each { k,v -> println "key=${k}:value=${v}" 
         v.each { key,value ->println  "key=${key}:value=${value}" 
             if (key == 'master'){              
@@ -83,7 +83,7 @@ stage("testing"){
     node("master"){
     def jsonFile = new File ("${env.WORKSPACE}/version.json}")
     writeJSON file: jsonFile, json:  GetJsonfile()
-    parserJsonfile(branch, Patch, jsonFile)
+    parserJsonfile(Branch, Patch, jsonFile)
     sh 'cat version.json'  
     }
   }
