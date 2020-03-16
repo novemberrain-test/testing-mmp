@@ -87,16 +87,20 @@ def parserJsonfile(branch, patch, jsonfile, major, revert=false){
     def listBranch = branch.split(",") 
     jsonfile.each { k,v -> 
         v.each { key,value -> println "${key} : ${value}" 
-            getMajor = value.mmp ; getMajor.split(".")
-            for (i in listBranch){
-                println getMajor[0]          
-                // if (revert && key =~ i && major) {            
-               // getMajor[0] = '100' 
-                // }               
+            getMajor = value.mmp
+            // List<String> list = Arrays.asList(getMajor.split("."));
+            // println list
+            println Integer.getMajor[0]
+            //list = getMajor.split(".")
+            for (i in listBranch){          
+                //if (revert && key =~ i && major) {            
+                    //def newMajor = (Integer.parseInt(getMajor[0].substring(1,getMajor[0].length()))+1)
+                    //println newMajor
+                //}               
             }
         }
     } 
-    println jsonfile
+    
 }
 
 def main(){
