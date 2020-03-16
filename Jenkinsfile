@@ -93,6 +93,7 @@ def parserJsonfile(branch, patch, jsonfile, major, revert=false){
             }
         }
     } 
+    println getMajor
     println jsonfile
 }
 
