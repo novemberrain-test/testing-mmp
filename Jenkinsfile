@@ -82,12 +82,12 @@ def revert(branch){  //add params later
     ;
 }
 def main(){
-    def jsonfile = GetJsonfile()
+    //def jsonfile = GetJsonfile()
     stage("testing"){
         node("master"){
         println jsonfile
     // def File = new File ("${env.WORKSPACE}/version.json}")
-        parserJsonfile(Branch, Patch, jsonfile)
+        parserJsonfile(Branch, Patch, GetJsonfile())
     // writeJSON file: File, json:  GetJsonfile()
     // sh 'cat version.json'  
         }
