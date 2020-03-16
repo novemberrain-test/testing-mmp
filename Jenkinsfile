@@ -83,15 +83,15 @@ def revert(branch , patch){  //add paramsf later
 
 def parserJsonfile(branch, patch, jsonfile, major, revert=false){
     def getMajor = ''
-    int total = "0" as Integer
+    def total = [:]
     def listBranch = branch.split(",") 
     jsonfile.each { k,v -> 
         v.each { key,value -> println "${key} : ${value}" 
             getMajor = value.mmp ; getMajor.split(".")
             for (i in listBranch){          
-                if (revert && key =~ i && major) {            
-                    total = getMajor[1].toInteger() + 1
-                }               
+                // if (revert && key =~ i && major) {            
+                getMajor[0] = '100' 
+                // }               
             }
         }
     } 
