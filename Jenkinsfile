@@ -65,7 +65,7 @@ def calendar(){
     println(month)
 }
 //calendar()
-println GetJsonfile().projects.master
+//println GetJsonfile().projects.master
         // if (Patch) {
         //     ;
         // }
@@ -82,7 +82,7 @@ def main(){
 stage("testing"){
     node("master"){
     def jsonFile = new File ("${env.WORKSPACE}/version.json}")
-    writeJSON file: 'version.json', json:  GetJsonfile()
+    writeJSON file: jsonFile, json:  GetJsonfile()
     sh 'cat version.json'
     parserJsonfile(branch, Patch, jsonFile)
     }
