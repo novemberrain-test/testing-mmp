@@ -70,7 +70,7 @@ def calendar(){
         //     ;
         // }
 def parserJsonfile(Branch, Patch, Jsonfile){
-    def listBranch = Branch.join(",") 
+    def listBranch = Branch.split(",") 
     Jsonfile.each { k,v -> 
         v.each { key,value ->
             for (i in listBranch){
