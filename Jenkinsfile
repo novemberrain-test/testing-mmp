@@ -57,7 +57,9 @@ def GetJsonfile(){
     return jsonfile
 }
 JsonBuilder builder = new JsonBuilder( GetJsonfile() )
+println builder.projects.master = 'fdskfjhdsjhf'
 println builder
+
 def calendar(){
     Calendar now = Calendar.getInstance()
     int year = now.get(Calendar.YEAR);
