@@ -88,7 +88,7 @@ def parserJsonfile(branch, patch, jsonfile, major, revert=false){
     jsonfile.each { k,v -> 
         v.each { key,value -> println "${key} : ${value}" 
             getMajor = value.mmp
-            println Integer.getMajor[0]
+            println getMajor[0]
             for (i in listBranch){
                 ;          
                 //if (revert && key =~ i && major) {            
