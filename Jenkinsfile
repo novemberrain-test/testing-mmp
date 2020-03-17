@@ -82,7 +82,7 @@ def revert(branch , patch){  //add paramsf later
 }
 
 def parserJsonfile(branch, patch, jsonfile, major, revert=false){
-    def abc = ''
+    int abc = 0
     def total = [:]
     def listBranch = branch.split(",") 
     jsonfile.each { k,v -> 
