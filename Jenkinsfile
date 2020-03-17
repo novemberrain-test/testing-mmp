@@ -57,7 +57,7 @@ def GetJsonfile(){
     return jsonfile
 }
 JsonBuilder builder = new JsonBuilder( GetJsonfile() )
-println builder.projects.master = 'fdskfjhdsjhf'
+println builder.content.projects.master = 'fdskfjhdsjhf'
 println builder
 
 def calendar(){
