@@ -86,7 +86,7 @@ def parserJsonfile(branch, patch, jsonfile, major, revert=false){
     def listBranch = branch.split(",") 
     jsonfile.each { k,v -> 
         v.each { key,value -> println "${key} : ${value}"
-            int temptotal = value.mmp.split(".")
+            temptotal = value.mmp.split(".")
             println temptotal
             for (i in listBranch){
                 value.mmp[1]
