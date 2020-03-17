@@ -4,7 +4,7 @@ import groovy.json.JsonSlurper
 // latestRelease  = branch.develop
 // branch.develop = 
 // def Node = "node_template" 
-//6eaaa6ec68dd4c5a94b97658362dadcb
+//54687fcf4b9c4f9da4847682b87fc1ff
 def StartDay                = params.StartDay ?: '01-01-2020'
 def EndDay                  = params.EndDay ?: 'end-day'
 def CurrentSprint           = params.CurrentSprint ?: ''
@@ -87,7 +87,7 @@ def parserJsonfile(branch, patch, jsonfile, major, revert=false){
     jsonfile.each { k,v -> 
         v.each { key,value -> println "${key} : ${value}"
             for (i in listBranch){
-                value.mmp[0] = (value.mmp[0].toInteger() + 1).toString()
+                value = int(value)
                 //if (revert && key =~ i && major) {            
                     //def newMajor = (Integer.parseInt(getMajor[0].substring(1,getMajor[0].length()))+1)
                     //println newMajor
