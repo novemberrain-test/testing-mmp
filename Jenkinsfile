@@ -91,7 +91,7 @@ def parserJsonfile(branch, patch, jsonfile, major, revert=false){
     JsonBuilder builder = new JsonBuilder(jsonfile)
     println builder
     def listBranch = branch.split(",") 
-    builder.each { k,v -> 
+    builder.content.each { k,v -> 
         v.each { key,value -> println "${key}:${value}"
             for (i in listBranch){
                 println key
