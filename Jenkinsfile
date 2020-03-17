@@ -89,6 +89,7 @@ def revert(branch , patch){  //add paramsf later
 
 def parserJsonfile(branch, patch, jsonfile, major, revert=false){
     JsonBuilder builder = new JsonBuilder(jsonfile)
+    println builder
     def listBranch = branch.split(",") 
     builder.each { k,v -> 
         v.each { key,value -> println "${key}:${value}"
