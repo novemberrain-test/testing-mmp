@@ -56,10 +56,11 @@ def GetJsonfile(){
     def jsonfile = readJSON text : response.content
     return jsonfile
 }
+node(master){
 JsonBuilder builder = new JsonBuilder( GetJsonfile() )
 println builder.content.projects.master = 'fdskfjhdsjhf'
 println builder
-
+}
 def calendar(){
     Calendar now = Calendar.getInstance()
     int year = now.get(Calendar.YEAR);
