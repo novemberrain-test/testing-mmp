@@ -60,6 +60,7 @@ node(master){
 JsonBuilder builder = new JsonBuilder( GetJsonfile() )
 println builder.content.projects.master = 'fdskfjhdsjhf'
 println builder
+println builder.getClass()
 }
 def calendar(){
     Calendar now = Calendar.getInstance()
