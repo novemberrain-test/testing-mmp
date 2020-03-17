@@ -92,8 +92,7 @@ def parserJsonfile(branch, patch, jsonfile, major, revert=false){
     def listBranch = branch.split(",") 
     builder.content.each { k,v -> 
         v.each { key,value -> 
-                if (revert && value.mmp[0] == major) {
-                    value.mmp[0] = '33'      
+                if (revert && value.mmp[0] == major) {     
                     println key
                     println value
                 }               
