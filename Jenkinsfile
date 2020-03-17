@@ -1,6 +1,5 @@
 #!/usr/bin/env groovy
-import groovy.json.JsonBuilder
-import groovy.json.JsonSlurper
+import groovy.json.*
 // latestRelease  = branch.develop
 // branch.develop = 
 // def Node = "node_template" 
@@ -48,13 +47,17 @@ env.TERM = "xterm"
 
 //if (Revert && )
 
+
+
+
 def GetJsonfile(){
     // def respone =  httpRequest "${url} + raw/duydoxuan/test-ray/ver.json"
     def response = httpRequest url: "https://raw.githubusercontent.com/duydoxuan/test-ray/master/ver.json"
     def jsonfile = readJSON text : response.content
     return jsonfile
 }
-
+JsonBuilder builder = new JsonBuilder( GetJsonfile() )
+println builder
 def calendar(){
     Calendar now = Calendar.getInstance()
     int year = now.get(Calendar.YEAR);
@@ -84,10 +87,10 @@ def revert(branch , patch){  //add paramsf later
 def parserJsonfile(branch, patch, jsonfile, major, revert=false){
     def listBranch = branch.split(",") 
     jsonfile.each { k,v -> 
-        v.each { key,value -> println "${key} : ${value}"
+        v.each { key,value -> 
             // temptotal = value.mmp.split(".").toInteger()
             for (i in listBranch){
-                value.mmp[0] = '10' 
+               // value.mmp[0] = '10' 
                 //if (revert && key =~ i && major) {            
                     //def newMajor = (Integer.parseInt(getMajor[0].substring(1,getMajor[0].length()))+1)
                     //println newMajor
