@@ -56,12 +56,11 @@ def GetJsonfile(){
     def jsonfile = readJSON text : response.content
     return jsonfile
 }
-node('master'){
-JsonBuilder builder = new JsonBuilder( GetJsonfile() )
-println builder.content.projects.master = 'fdskfjhdsjhf'
-println builder
-println builder.getClass()
-}
+// node('master'){
+// JsonBuilder builder = new JsonBuilder( GetJsonfile() )
+// println builder.content.projects.master = 'fdskfjhdsjhf'
+// def a = builder.content.projects.master
+// }
 def calendar(){
     Calendar now = Calendar.getInstance()
     int year = now.get(Calendar.YEAR);
@@ -89,18 +88,18 @@ def revert(branch , patch){  //add paramsf later
 }
 
 def parserJsonfile(branch, patch, jsonfile, major, revert=false){
+    JsonBuilder builder = new JsonBuilder(jsonfile)
     def listBranch = branch.split(",") 
-    jsonfile.each { k,v -> 
+    builder.each { k,v -> 
         v.each { key,value -> 
-            // temptotal = value.mmp.split(".").toInteger()
             for (i in listBranch){
-               // value.mmp[0] = '10' 
+                println key
+                println value
                 //if (revert && key =~ i && major) {            
                     //def newMajor = (Integer.parseInt(getMajor[0].substring(1,getMajor[0].length()))+1)
                     //println newMajor
                 //}               
             }
-            println jsonfile
         }
     } 
     
