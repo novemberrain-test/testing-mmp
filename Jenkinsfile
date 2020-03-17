@@ -93,7 +93,7 @@ def parserJsonfile(branch, patch, jsonfile, major, revert=false){
     builder.content.each { k,v -> 
         v.each { key,value -> 
                 if (revert && value.mmp[0] == major) {     
-                    println builder.content.projects."${key}"       
+                    println builder.content.projects."${key}".mmp     
                 }               
            }
        }
