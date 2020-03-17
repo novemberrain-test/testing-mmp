@@ -86,10 +86,8 @@ def parserJsonfile(branch, patch, jsonfile, major, revert=false){
     def listBranch = branch.split(",") 
     jsonfile.each { k,v -> 
         v.each { key,value -> println "${key} : ${value}"
-            temptotal = value.mmp.split(".")
-            println temptotal
+            temptotal = value.mmp.split(".").toInteger()
             for (i in listBranch){
-                value.mmp[1]
                 //if (revert && key =~ i && major) {            
                     //def newMajor = (Integer.parseInt(getMajor[0].substring(1,getMajor[0].length()))+1)
                     //println newMajor
