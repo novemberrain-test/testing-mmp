@@ -82,7 +82,6 @@ def revert(branch , patch){  //add paramsf later
 }
 
 def parserJsonfile(branch, patch, jsonfile, major, revert=false){
-    int temptotal = []
     def listBranch = branch.split(",") 
     jsonfile.each { k,v -> 
         v.each { key,value -> println "${key} : ${value}"
