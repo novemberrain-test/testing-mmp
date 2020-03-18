@@ -80,7 +80,7 @@ def calendar(){
 def element (major){
     ;
 }
-def updateSprintAndVersion (branch, patch){
+def updateSprintAndVersion (mapofelement, branch, patch){
     
 }
 def revert(mapofelement , patch){  //add paramsf later
@@ -95,10 +95,11 @@ def parserJsonfile(branch, patch, jsonfile, major, revert=false){
         v.each { key,value -> 
                 if (revert && value.mmp[0] == major) {     
                     //println (builder.content.projects."${key}".mmp[0].toInteger() + 1)
-
+                    mapOfElement.put(key, value)
                 }               
            }
        }
+       println mapOfElement
 }
 
 def main(){
