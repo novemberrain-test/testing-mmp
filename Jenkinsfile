@@ -2,7 +2,7 @@
 import groovy.json.*
 // latestRelease  = branch.develop
 // branch.develop = 
-// def Node = "node_template" 
+// def Node = "node_template" //ffff
 //54687fcf4b9c4f9da4847682b87fc1ff
 def StartDay                = params.StartDay ?: '01-01-2020'
 def EndDay                  = params.EndDay ?: 'end-day'
