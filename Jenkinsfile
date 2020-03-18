@@ -15,7 +15,6 @@ def Branch                  = params.Branch ?: 'master,develop,release'
 def credentialsID           = 'github'
 def dayOfWeekToStartSprint  = ''    // value to check so we can get the active_sprint value
 def Revert                  = false
-
 // Pipeline properties
 properties([
     // disableConcurrentBuilds(),
@@ -31,7 +30,7 @@ properties([
         string(defaultValue: '', description: 'current sprint', name: 'CurrentSprint', trim: true),
         string(defaultValue: '1', description: 'minor', name: 'Minor', trim: true),
         string(defaultValue: '1', description: 'major', name: 'Major', trim: true),
-        string(defaultValue: '0', description: 'Patch ', name: 'Patch', trim: true),
+        string(defaultValue: "2.2.2", description: 'fill full patch version', name: 'Patch', trim: true),
         string(defaultValue: '', description: 'Week Of Sprint', name: 'WeekOfSprint', trim: true),
         string(defaultValue: 'master,develop,release', description: 'branch', name: 'Branch', trim: true),
         booleanParam(defaultValue: false, description: 'revert version', name: 'Revert'),
@@ -44,12 +43,6 @@ properties([
 //  
 // Enable color console
 env.TERM = "xterm"
-
-//if (Revert && )
-
-
-
-
 def GetJsonfile(){
     // def respone =  httpRequest "${url} + raw/duydoxuan/test-ray/ver.json"
     def response = httpRequest url: "https://raw.githubusercontent.com/duydoxuan/test-ray/master/ver.json"
@@ -67,11 +60,18 @@ def calendar(){
     println(year)
     println(month)
 }
-def element (major){
-    ;
+//add hotfix to version file 
+def hotfix (patch){
+
+  return patch 
 }
 def updateSprintAndVersion (mapofelement, branch, patch){
     
+    if (!patch){
+    for (i in branch){
+
+        }
+    }
 }
 def revert(mapofelement , patch){  //add paramsf later
     ;
@@ -79,27 +79,23 @@ def revert(mapofelement , patch){  //add paramsf later
 
 def parserJsonfile(branch, patch, jsonfile, major, revert=false){
     def mapOfElement = [:]
-    String[] listOfMMP
+    def listOfMMP = []
     JsonBuilder builder = new JsonBuilder(jsonfile)
     def listBranch = branch.split(",") 
     builder.content.each { k,v -> 
         v.each { key,value -> 
-                if (revert && value.mmp[0] == major) {     
-                    //println (builder.content.projects."${key}".mmp[0].toInteger() + 1)
-                    println builder.content.projects."${key}".mmp.getClass()
-                    listOfMMP=builder.content.projects."${key}".mmp.split(".").toString()
-                    
+                if (revert && value.mmp[0] == major) {       
+                    listOfMMP = builder.content.projects."${key}".mmp.tokenize(".") 
                     mapOfElement.put(key, listOfMMP)
-
-                }               
-           }
-       }
-       println mapOfElement
+                }
+    }
+    println builder.content
 }
-
+}
 def main(){
     stage("testing"){
         node("master"){
+            println params.Patch
     // def File = new File ("${env.WORKSPACE}/version.json}")
         parserJsonfile(Branch, Patch, GetJsonfile(), Major, Revert)
     // writeJSON file: File, json:  GetJsonfile()
