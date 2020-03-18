@@ -86,7 +86,9 @@ def parserJsonfile(branch, patch, jsonfile, major, revert=false){
         v.each { key,value -> 
                 if (revert && value.mmp[0] == major) {     
                     //println (builder.content.projects."${key}".mmp[0].toInteger() + 1)
+                     
                     listOfMMP=builder.content.projects."${key}".mmp.split(".")
+                    println listOfMMP
                     mapOfElement.put(key, listOfMMP)
 
                 }               
