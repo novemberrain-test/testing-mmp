@@ -56,11 +56,9 @@ def GetJsonfile(){
     def jsonfile = readJSON text : response.content
     return jsonfile
 }
-// node('master'){
-// JsonBuilder builder = new JsonBuilder( GetJsonfile() )
+
 // println builder.content.projects.master = 'fdskfjhdsjhf'
-// def a = builder.content.projects.master
-// }
+
 def calendar(){
     Calendar now = Calendar.getInstance()
     int year = now.get(Calendar.YEAR);
@@ -69,14 +67,6 @@ def calendar(){
     println(year)
     println(month)
 }
-//calendar()
-//println GetJsonfile().projects.master
-        // if (Patch) {
-        //     ;
-        // }
-// def listBranch = Branch.split(",") 
-// println ("alo ${listBranch}")
-//if (key =~ i && int(value.mmp[Major][]) == )
 def element (major){
     ;
 }
@@ -89,13 +79,16 @@ def revert(mapofelement , patch){  //add paramsf later
 
 def parserJsonfile(branch, patch, jsonfile, major, revert=false){
     def mapOfElement = [:]
+    def listOfMMP = []
     JsonBuilder builder = new JsonBuilder(jsonfile)
     def listBranch = branch.split(",") 
     builder.content.each { k,v -> 
         v.each { key,value -> 
                 if (revert && value.mmp[0] == major) {     
                     //println (builder.content.projects."${key}".mmp[0].toInteger() + 1)
-                    mapOfElement.put(key, builder.content.projects."${key}".mmp)
+                    listOfMMP=builder.content.projects."${key}".mmp.split(".")
+                    mapOfElement.put(key, listOfMMP)
+
                 }               
            }
        }
