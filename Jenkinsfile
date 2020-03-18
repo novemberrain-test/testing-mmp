@@ -79,16 +79,16 @@ def revert(mapofelement , patch){  //add paramsf later
 
 def parserJsonfile(branch, patch, jsonfile, major, revert=false){
     def mapOfElement = [:]
-    def listOfMMP = []
+    String[] listOfMMP
     JsonBuilder builder = new JsonBuilder(jsonfile)
     def listBranch = branch.split(",") 
     builder.content.each { k,v -> 
         v.each { key,value -> 
                 if (revert && value.mmp[0] == major) {     
                     //println (builder.content.projects."${key}".mmp[0].toInteger() + 1)
-                     
+                    println builder.content.projects."${key}".mmp.getClass()
                     listOfMMP=builder.content.projects."${key}".mmp.split(".").toString()
-                    println listOfMMP
+                    
                     mapOfElement.put(key, listOfMMP)
 
                 }               
