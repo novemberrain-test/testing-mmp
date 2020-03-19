@@ -63,7 +63,7 @@ def calendar(){
 def hotfix (jsonHotfix, patch){  
     def hotFix = new JsonBuilder()
     println patch
-    def getSprintAndMPP = patch.tokenize("-")
+    def getSprintAndMPP = patch.tokenize(",")
     println getSprintAndMPP[0]
     println getSprintAndMPP[1]
     def root = hotFix."hotfix/${getSprintAndMPP[0]}" {  
