@@ -43,52 +43,34 @@ properties([
 //  
 // Enable color console
 env.TERM = "xterm"
-
+@NonCPS
 def GetJsonfile(patch){
     def getSprintAndMPP = patch.tokenize(",")
-    // def respone =  httpRequest "${url} + raw/duydoxuan/test-ray/ver.json"
-    // def response = httpRequest url: "https://raw.githubusercontent.com/duydoxuan/test-ray/master/ver.json"
-    // def jsonfile = readJSON text : response.content
     def response = ["curl", "Accept: application/vnd.github.v3.raw", "https://raw.githubusercontent.com/duydoxuan/test-ray/master/ver.json"]
     def json = response.execute().text
-    def jsonfile = new JsonSlurper().parseText(json) 
+    def jsonfile = new JsonSlurper().parseText(json)
+    def jsonbuilder = new JsonBuilder(jsonfile)
+    def hotfix = "hotfix/${getSprintAndMPP[0]}"
+    def hotfixbuilder = new JsonBuilder()
+    def jsonhotfix = hotfixbuilder.hotfix {
+        "sprint" getSprintAndMPP[1]
+        "mmp"    getSprintAndMPP[0]
+    }
+    jsonbuilder.content.projects.hotfix = jsonhotfix.hotfix
     if (patch){      
-        jsonfile << ["hotfix/${getSprintAndMPP[0]}": "sprint: ${getSprintAndMPP[1]}, mmp: ${getSprintAndMPP[0]}}"]
+        // jsonfile << ["hotfix/${getSprintAndMPP[0]}": "${json_req}"]
         return JsonOutput.toJson(jsonfile)
     }
         return JsonOutput.toJson(jsonfile)
 }
-
 println GetJsonfile(Patch)
-// println builder.content.projects.master = 'fdskfjhdsjhf'
 def calendar(){
     Calendar now = Calendar.getInstance()
     int year = now.get(Calendar.YEAR);
     int month = now.get(Calendar.MONTH) + 1; // Note: zero based!
     return [month, year]
 }
-//add hotfix to version file
-@NonCPS
-def hotfix (jsonHotfix, patch){  
-    def hotFix = new JsonBuilder()
-    def getSprintAndMPP = patch.tokenize(",")
-    def root = hotFix."hotfix/${getSprintAndMPP[0]}" {  
-        sprint  "sprint.year.sprint"
-        mmp     "${getSprintAndMPP[0]}"                      
-    }
-    println root
-    jsonHotfix.content.getSprintAndMPP[0] = root.getSprintAndMPP[0]
-    println jsonHotfix.content
-}
 
-def updateSprintAndVersion (mapofelement, branch, patch){
-    def temp = ''
-    if (!patch){
-    for (i in branch){
-            ;
-        }
-    }
-}
 def revert(mapofelement , patch){  //add paramsf later
     ;
 }
@@ -104,26 +86,24 @@ def parserJsonfile(branch, patch, jsonfile, major, revert=false){
                 if (revert && value.mmp[0] == major) {       
                     listOfMMP = builder.content.projects."${key}".mmp.tokenize(".") 
                     mapOfElement.put(key, listOfMMP)
-                }
-    }   
-        hotfix (builder, Patch)
-        try {
-        def root = TEST.event {  
-            type  "model_output_load_init"
-            status "success"                      
-        }  
-        builder.event = root.event
-        } catch(Exception e){
-            println ""
-        }
+            }
+        }   
     println builder.content
+    }
 }
+def updateSprintAndVersion (mapofelement, branch, patch){
+    def temp = ''
+    if (!patch){
+    for (i in branch){
+            ;
+        }
+    }
 }
 def main(){
     stage("testing"){
         node("master"){
     // def File = new File ("${env.WORKSPACE}/version.json}")
-    parserJsonfile(Branch, Patch, GetJsonfile(), Major, Revert)
+    parserJsonfile(Branch, Patch, GetJsonfile(Patch), Major, Revert)
     // writeJSON file: File, json:  GetJsonfile()
     // sh 'cat version.json'  
         }
