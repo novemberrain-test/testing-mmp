@@ -43,15 +43,24 @@ properties([
 //  
 // Enable color console
 env.TERM = "xterm"
-def GetJsonfile(){
+
+def GetJsonfile(patch){
+    def getSprintAndMPP = patch.tokenize(",")
     // def respone =  httpRequest "${url} + raw/duydoxuan/test-ray/ver.json"
-    def response = httpRequest url: "https://raw.githubusercontent.com/duydoxuan/test-ray/master/ver.json"
-    def jsonfile = readJSON text : response.content
-    return jsonfile
+    // def response = httpRequest url: "https://raw.githubusercontent.com/duydoxuan/test-ray/master/ver.json"
+    // def jsonfile = readJSON text : response.content
+    def response = ["curl", "Accept: application/vnd.github.v3.raw", "https://raw.githubusercontent.com/duydoxuan/test-ray/master/ver.json"]
+    def json = response.execute().text
+    def jsonfile = new JsonSlurper().parseText(json) 
+    if (patch){      
+        jsonfile << ["hotfix/${getSprintAndMPP[0]}": "sprint: ${getSprintAndMPP[1]}, mmp: ${getSprintAndMPP[0]}}"]
+        return JsonOutput.toJson(jsonfile)
+    }
+        return JsonOutput.toJson(jsonfile)
 }
 
+println GetJsonfile(Patch)
 // println builder.content.projects.master = 'fdskfjhdsjhf'
-
 def calendar(){
     Calendar now = Calendar.getInstance()
     int year = now.get(Calendar.YEAR);
@@ -62,16 +71,13 @@ def calendar(){
 @NonCPS
 def hotfix (jsonHotfix, patch){  
     def hotFix = new JsonBuilder()
-    println patch
     def getSprintAndMPP = patch.tokenize(",")
-    println getSprintAndMPP[0]
-    println getSprintAndMPP[1]
     def root = hotFix."hotfix/${getSprintAndMPP[0]}" {  
         sprint  "sprint.year.sprint"
         mmp     "${getSprintAndMPP[0]}"                      
     }
     println root
-    jsonHotfix.content."hotfix/${getSprintAndMPP[0]}" = root."hotfix/${getSprintAndMPP[0]}"
+    jsonHotfix.content.getSprintAndMPP[0] = root.getSprintAndMPP[0]
     println jsonHotfix.content
 }
 
@@ -100,7 +106,7 @@ def parserJsonfile(branch, patch, jsonfile, major, revert=false){
                     mapOfElement.put(key, listOfMMP)
                 }
     }   
-        hotfix (builder, patch)
+        hotfix (builder, Patch)
         try {
         def root = TEST.event {  
             type  "model_output_load_init"
