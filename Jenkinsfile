@@ -30,7 +30,7 @@ properties([
         string(defaultValue: '', description: 'current sprint', name: 'CurrentSprint', trim: true),
         string(defaultValue: '1', description: 'minor', name: 'Minor', trim: true),
         string(defaultValue: '1', description: 'major', name: 'Major', trim: true),
-        string(defaultValue: '', description: 'fill full patch version', name: 'Patch', trim: true),
+        string(defaultValue: '1.1.1,26', description: 'fill full patch version', name: 'Patch', trim: true),
         string(defaultValue: '', description: 'Week Of Sprint', name: 'WeekOfSprint', trim: true),
         string(defaultValue: 'master,develop,release', description: 'branch', name: 'Branch', trim: true),
         booleanParam(defaultValue: false, description: 'revert version', name: 'Revert'),
@@ -51,14 +51,13 @@ def GetJsonfile(patch){
     def jsonfile = new JsonSlurper().parseText(json)
     def jsonbuilder = new JsonBuilder(jsonfile)
     def hotfix = "hotfix/${getSprintAndMPP[0]}"
-    def hotfixbuilder = new JsonBuilder()
-    def jsonhotfix = hotfixbuilder.hotfix {
+    if (patch){   
+        def hotfixbuilder = new JsonBuilder()
+        def jsonhotfix = hotfixbuilder.hotfix {
         "sprint" getSprintAndMPP[1]
         "mmp"    getSprintAndMPP[0]
-    }
-    jsonbuilder.content.projects.hotfix = jsonhotfix.hotfix
-    if (patch){      
-        // jsonfile << ["hotfix/${getSprintAndMPP[0]}": "${json_req}"]
+        }
+        jsonbuilder.content.projects.hotfix = jsonhotfix.hotfix
         return JsonOutput.toJson(jsonfile)
     }
         return JsonOutput.toJson(jsonfile)
