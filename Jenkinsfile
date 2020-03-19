@@ -30,7 +30,7 @@ properties([
         string(defaultValue: '', description: 'current sprint', name: 'CurrentSprint', trim: true),
         string(defaultValue: '1', description: 'minor', name: 'Minor', trim: true),
         string(defaultValue: '1', description: 'major', name: 'Major', trim: true),
-        string(defaultValue: "2.2.2", description: 'fill full patch version', name: 'Patch', trim: true),
+        string(defaultValue: '2.2.2,5', description: 'fill full patch version', name: 'Patch', trim: true),
         string(defaultValue: '', description: 'Week Of Sprint', name: 'WeekOfSprint', trim: true),
         string(defaultValue: 'master,develop,release', description: 'branch', name: 'Branch', trim: true),
         booleanParam(defaultValue: false, description: 'revert version', name: 'Revert'),
@@ -56,31 +56,42 @@ def calendar(){
     Calendar now = Calendar.getInstance()
     int year = now.get(Calendar.YEAR);
     int month = now.get(Calendar.MONTH) + 1; // Note: zero based!
-    println(now)
-    println(year)
-    println(month)
+    return [month, year]
 }
-//add hotfix to version file 
-def hotfix (patch){
+//add hotfix to version file
+@NonCPS
+def hotfix (jsonHotfix, patch){  
+    def hotFix = new JsonBuilder()
+    println patch
+    def getSprintAndMPP = patch.tokenize("-")
+    println getSprintAndMPP[0]
+    println getSprintAndMPP[1]
+    def root = hotFix."hotfix/${getSprintAndMPP[0]}" {  
+        sprint  "sprint.year.sprint"
+        mmp     "${getSprintAndMPP[0]}"                      
+    }
+    println root
+    jsonHotfix.content."hotfix/${getSprintAndMPP[0]}" = root."hotfix/${getSprintAndMPP[0]}"
+    println jsonHotfix.content
+}
 
-  return patch 
-}
 def updateSprintAndVersion (mapofelement, branch, patch){
-    
+    def temp = ''
     if (!patch){
     for (i in branch){
-
+            ;
         }
     }
 }
 def revert(mapofelement , patch){  //add paramsf later
     ;
 }
-
+@NonCPS
 def parserJsonfile(branch, patch, jsonfile, major, revert=false){
     def mapOfElement = [:]
     def listOfMMP = []
     JsonBuilder builder = new JsonBuilder(jsonfile)
+    def TEST = new JsonBuilder()
     def listBranch = branch.split(",") 
     builder.content.each { k,v -> 
         v.each { key,value -> 
@@ -88,16 +99,25 @@ def parserJsonfile(branch, patch, jsonfile, major, revert=false){
                     listOfMMP = builder.content.projects."${key}".mmp.tokenize(".") 
                     mapOfElement.put(key, listOfMMP)
                 }
-    }
+    }   
+        hotfix (builder, patch)
+        try {
+        def root = TEST.event {  
+            type  "model_output_load_init"
+            status "success"                      
+        }  
+        builder.event = root.event
+        } catch(Exception e){
+            println ""
+        }
     println builder.content
 }
 }
 def main(){
     stage("testing"){
         node("master"){
-            println params.Patch
     // def File = new File ("${env.WORKSPACE}/version.json}")
-        parserJsonfile(Branch, Patch, GetJsonfile(), Major, Revert)
+    parserJsonfile(Branch, Patch, GetJsonfile(), Major, Revert)
     // writeJSON file: File, json:  GetJsonfile()
     // sh 'cat version.json'  
         }
