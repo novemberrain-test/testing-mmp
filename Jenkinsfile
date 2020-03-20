@@ -73,7 +73,7 @@ def parserJsonfile(branch, patch, jsonfile, major, revert=false){
     JsonBuilder builder = new JsonBuilder(jsonfile)
     def listBranch = branch.tokenize(",")
     builder.content.each { k,v -> 
-        v.each { key,value -> println "${key}:${value}"
+        v.each { key,value -> 
                 if (revert && value.mmp[0] == major) {    
                     listOfMMP = builder.content.projects."${key}".mmp.tokenize(".")
                     mapOfElement.put(key, listOfMMP)
