@@ -43,6 +43,7 @@ properties([
 //  
 // Enable color console
 env.TERM = "xterm"
+@NonCPS
 def calendar(){
     Calendar now = Calendar.getInstance()
     int year = now.get(Calendar.YEAR);
