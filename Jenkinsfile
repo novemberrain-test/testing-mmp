@@ -43,13 +43,6 @@ properties([
 //  
 // Enable color console
 env.TERM = "xterm"
-// @NonCPS
-// def calendar(){
-//     Calendar now = Calendar.getInstance()
-//     int year = now.get(Calendar.YEAR);
-//     int month = now.get(Calendar.MONTH) + 1; // Note: zero based!
-//     return [month, year]
-// }
 @NonCPS
 def GetJsonfile(patch){
     Calendar now = Calendar.getInstance()
@@ -67,15 +60,14 @@ def GetJsonfile(patch){
             "mmp"    "${getSprintAndMPP[0]}"
         }
         jsonbuilder.content.projects."${hotfix}" = jsonhotfix["${hotfix}"]
+    }
         println jsonfile
         return jsonfile
-    }
 }
 GetJsonfile(Patch)
-def revert(mapofelement , patch){  //add paramsf later
+def revert(mapofelement , patch){
     ;
 }
-// @NonCPS
 def parserJsonfile(branch, patch, jsonfile, major, revert=false){
     def mapOfElement = [:]
     def listOfMMP = []
