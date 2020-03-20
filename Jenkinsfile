@@ -43,15 +43,17 @@ properties([
 //  
 // Enable color console
 env.TERM = "xterm"
-@NonCPS
-def calendar(){
-    Calendar now = Calendar.getInstance()
-    int year = now.get(Calendar.YEAR);
-    int month = now.get(Calendar.MONTH) + 1; // Note: zero based!
-    return [month, year]
-}
+// @NonCPS
+// def calendar(){
+//     Calendar now = Calendar.getInstance()
+//     int year = now.get(Calendar.YEAR);
+//     int month = now.get(Calendar.MONTH) + 1; // Note: zero based!
+//     return [month, year]
+// }
 @NonCPS
 def GetJsonfile(patch){
+    Calendar now = Calendar.getInstance()
+    def year = now.get(Calendar.YEAR)
     def getSprintAndMPP = patch.tokenize(",")
     def response = ["curl", "Accept: application/vnd.github.v3.raw", "https://raw.githubusercontent.com/duydoxuan/test-ray/master/ver.json"]
     def json = response.execute().text
@@ -60,15 +62,16 @@ def GetJsonfile(patch){
     def hotfix = "hotfix/${getSprintAndMPP[0]}"
     if (patch){   
         def hotfixbuilder = new JsonBuilder()
-        def jsonhotfix = hotfixbuilder.hotfix {
-        "sprint" "sprint.${calendar()[1]}.${getSprintAndMPP[1]}"
-        "mmp"    getSprintAndMPP[0]
+        def jsonhotfix = hotfixbuilder."${hotfix}" {
+            "sprint" "sprint.${year}.${getSprintAndMPP[1]}"
+            "mmp"    "${getSprintAndMPP[0]}"
         }
-        jsonbuilder.content.projects.hotfix = jsonhotfix.hotfix
-    }
-        // return JsonOutput.toJson(jsonfile)
+        jsonbuilder.content.projects."${hotfix}" = jsonhotfix["${hotfix}"]
+        println jsonfile
         return jsonfile
+    }
 }
+GetJsonfile(Patch)
 def revert(mapofelement , patch){  //add paramsf later
     ;
 }
@@ -80,17 +83,14 @@ def parserJsonfile(branch, patch, jsonfile, major, revert=false){
     def listBranch = branch.tokenize(",")
     builder.content.each { k,v -> 
         v.each { key,value -> println "${key}:${value}"
-                if (revert && value.mmp[0] == major) { 
-                    println "9"      
+                if (revert && value.mmp[0] == major) {    
                     listOfMMP = builder.content.projects."${key}".mmp.tokenize(".")
-                    println listOfMMP
                     mapOfElement.put(key, listOfMMP)
             }
-        }   
+        } 
+        println mapOfElement  
     }
-    // println mapOfElement
 }
-parserJsonfile(Branch, Patch, GetJsonfile(Patch), Major, Revert)
 
 def updateSprintAndVersion (mapofelement, branch, patch){
     def temp = ''
@@ -100,14 +100,14 @@ def updateSprintAndVersion (mapofelement, branch, patch){
         }
     }
 }
-// def main(){
-//     stage("testing"){
-//     parserJsonfile(Branch, Patch, GetJsonfile(), Major, Revert)
 
-//         }
-//     }
+def main(){
+    stage("testing"){
+        parserJsonfile(Branch, Patch, GetJsonfile(Patch), Major, Revert)
+        }
+    }
 
-// main()
+main()
 
 
 // def ParsedDayOfStart(){
