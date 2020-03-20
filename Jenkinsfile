@@ -61,7 +61,6 @@ def GetJsonfile(patch){
         }
         jsonbuilder.content.projects."${hotfix}" = jsonhotfix["${hotfix}"]
     }
-        println jsonfile
         return jsonfile
 }
 GetJsonfile(Patch)
