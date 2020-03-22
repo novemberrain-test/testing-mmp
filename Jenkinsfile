@@ -9,13 +9,14 @@ def EndDay                  = params.EndDay ?: 'end-day'
 def CurrentSprint           = params.CurrentSprint ?: ''
 def Minor                   = params.Minor ?: '1'
 def Major                   = params.Major ?: '1'
-def Patch                   = params.Patch ?: ''
+def AddPatch                = params.AddPatch ?: ''
+def AddRelease              = params.AddRelease ?: ''
 def WeekOfSprint            = params.WeekOfSprint ?: '2'
 def Branch                  = params.Branch ?: 'master,develop,release'
 def credentialsID           = 'github'
 def dayOfWeekToStartSprint  = ''    // value to check so we can get the active_sprint value
 def Revert                  = false
-def remove                  = false
+def RemovePatch             = false
 // Pipeline properties
 properties([
     // disableConcurrentBuilds(),
@@ -31,10 +32,12 @@ properties([
         string(defaultValue: '', description: 'current sprint', name: 'CurrentSprint', trim: true),
         string(defaultValue: '1', description: 'minor', name: 'Minor', trim: true),
         string(defaultValue: '1', description: 'major', name: 'Major', trim: true),
-        string(defaultValue: '1.1.1,26', description: 'fill full patch version', name: 'Patch', trim: true),
+        string(defaultValue: '1.1.1,26', description: 'fill full patch version', name: 'AddPatch', trim: true),
+        string(defaultValue: '1.1.1,26', description: 'fill full release version', name: 'AddRelease', trim: true),
         string(defaultValue: '', description: 'Week Of Sprint', name: 'WeekOfSprint', trim: true),
         string(defaultValue: 'master,develop,release', description: 'branch', name: 'Branch', trim: true),
-        booleanParam(defaultValue: false, description: 'revert version', name: 'Revert'),
+        booleanParam(defaultValue: false, description: 'revert version', name: 'Revert')
+        booleanParam(defaultValue: false, description: 'remove path', name: 'RemovePatch')
     ]),
     pipelineTriggers([
         // cron('0 H/24 * * *'),
@@ -45,44 +48,54 @@ properties([
 // Enable color console
 env.TERM = "xterm"
 @NonCPS
-def GetJsonfile(patch){
+def GetJsonfile(){
     Calendar now = Calendar.getInstance()
     def year = now.get(Calendar.YEAR)
-    def getSprintAndMPP = patch.tokenize(",")
+    def getSprintAndMPPHotfix = params.AddPatch.tokenize(",")
+    def getSprintAndMPPRelease = params.AddRelease.tokenize(",")
     def response = ["curl", "Accept: application/vnd.github.v3.raw", "https://raw.githubusercontent.com/duydoxuan/test-ray/master/ver.json"]
     def json = response.execute().text
     def jsonfile = new JsonSlurper().parseText(json)
     def jsonbuilder = new JsonBuilder(jsonfile)
-    def hotfix = "hotfix/${getSprintAndMPP[0]}"
-    if (patch){   
-        def hotfixbuilder = new JsonBuilder()
-        def jsonhotfix = hotfixbuilder."${hotfix}" {
-            "sprint" "sprint.${year}.${getSprintAndMPP[1]}"
-            "mmp"    "${getSprintAndMPP[0]}"
+    def hotfix = "hotfix/${getSprintAndMPPHotfix[0]}"
+    def release = "release/${getSprintAndMPPRelease[0]}"
+    def elementbuilder = new JsonBuilder()
+    if (params.AddPatch){         
+        def jsonhotfix = elementbuilder."${hotfix}" {
+            "sprint" "sprint.${year}.${getSprintAndMPPHotfix[1]}"
+            "mmp"    "${getSprintAndMPPHotfix[0]}"
         }
         jsonbuilder.content.projects."${hotfix}" = jsonhotfix["${hotfix}"]
-    } else if (removePatch){
+    }else if (params.AddRelease){
+        def jsonrelease = elementbuilder."${release}" {
+            "sprint" "sprint.${year}.${getSprintAndMPPRelease[1]}"
+            "mmp"    "${getSprintAndMPPRelease[0]}"
+        }
+        jsonbuilder.content.projects."${release}" = jsonhotfix["${release}"]
+    } else if (params.RemovePatch){
         //remove hotfix
         ;
     }
         println jsonfile
         return jsonfile
 }
-GetJsonfile(Patch)
+GetJsonfile()
 
-def parserJsonfile(branch, jsonfile, revert=false){
+def parserJsonfile(jsonfile, revert=false){
     def mapOfElement = [:]
     def listOfMMP = []
     JsonBuilder builder = new JsonBuilder(jsonfile)
-    //def listBranch = branch.tokenize(",")
+    def listBranch = branch.tokenize(",")
     builder.content.each { k,v -> 
         v.each { key,value -> 
                 if (revert && value.mmp[0] == params.Major) {    
                     listOfMMP = builder.content.projects."${key}".mmp.tokenize(".")
                     mapOfElement.put(key, listOfMMP)
                     // update sprintnumber and version
-                    if(key contains ){
-                        
+                    for (i in listBranch){
+                        if(key.contains(i)){
+                            
+                    }
                 }
             }
         } 
@@ -103,7 +116,7 @@ def revert(mapofelement , patch){
 }
 def main(){
     stage("testing"){
-        parserJsonfile(Branch, GetJsonfile(Patch), Revert)
+        parserJsonfile(GetJsonfile(Patch), Revert)
         }
     }
 
