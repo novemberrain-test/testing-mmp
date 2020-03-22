@@ -72,7 +72,7 @@ def GetJsonfile(){
             "mmp"    "${getSprintAndMPPRelease[0]}"
         }
         jsonbuilder.content.projects."${release}" = jsonhotfix["${release}"]
-    } else if (params.RemovePatch){
+    }else if (params.RemovePatch){
         //remove hotfix
         ;
     }
@@ -94,7 +94,7 @@ def parserJsonfile(jsonfile, revert=false){
                     // update sprintnumber and version
                     for (i in listBranch){
                         if(key.contains(i)){
-                            value.mmp[1].Interger() += 1
+                            value.mmp[1].toInterger() += 1
                     }
                 }
             }
