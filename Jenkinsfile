@@ -36,8 +36,8 @@ properties([
         string(defaultValue: '1.1.1,26', description: 'fill full release version', name: 'AddRelease', trim: true),
         string(defaultValue: '', description: 'Week Of Sprint', name: 'WeekOfSprint', trim: true),
         string(defaultValue: 'master,develop,release', description: 'branch', name: 'Branch', trim: true),
-        booleanParam(defaultValue: false, description: 'revert version', name: 'Revert')
-        booleanParam(defaultValue: false, description: 'remove path', name: 'RemovePatch')
+        booleanParam(defaultValue: false, description: 'revert version', name: 'Revert'),
+        booleanParam(defaultValue: false, description: 'remove path', name: 'RemovePatch'),
     ]),
     pipelineTriggers([
         // cron('0 H/24 * * *'),
