@@ -96,7 +96,7 @@ def revert(mapofelement , patch){
 }
 def main(){
     stage("testing"){
-        parserJsonfile(Branch, Patch, GetJsonfile(Patch), Major, Revert)
+        parserJsonfile(Branch, Patch, GetJsonfile(Patch), Revert)
         }
     }
 
