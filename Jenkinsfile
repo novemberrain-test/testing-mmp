@@ -81,7 +81,7 @@ def parserJsonfile(branch, jsonfile, revert=false){
                     listOfMMP = builder.content.projects."${key}".mmp.tokenize(".")
                     mapOfElement.put(key, listOfMMP)
                     // update sprintnumber and version
-                    if(key ){
+                    if(key contains ){
                         
                 }
             }
