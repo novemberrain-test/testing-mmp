@@ -94,7 +94,7 @@ def parserJsonfile(jsonfile, revert=false){
                     // update sprintnumber and version
                     for (i in listBranch){
                         if(key.contains(i)){
-                            value.mmp[1] += 1
+                            value.mmp[1].Interger() += 1
                     }
                 }
             }
