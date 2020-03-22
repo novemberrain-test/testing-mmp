@@ -66,7 +66,7 @@ def GetJsonfile(patch){
 }
 GetJsonfile(Patch)
 
-def parserJsonfile(branch, patch, jsonfile, revert=false){
+def parserJsonfile(branch, jsonfile, revert=false){
     def mapOfElement = [:]
     def listOfMMP = []
     JsonBuilder builder = new JsonBuilder(jsonfile)
@@ -96,7 +96,7 @@ def revert(mapofelement , patch){
 }
 def main(){
     stage("testing"){
-        parserJsonfile(Branch, Patch, GetJsonfile(Patch), Revert)
+        parserJsonfile(Branch, GetJsonfile(Patch), Revert)
         }
     }
 
