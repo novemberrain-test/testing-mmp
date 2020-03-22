@@ -15,6 +15,7 @@ def Branch                  = params.Branch ?: 'master,develop,release'
 def credentialsID           = 'github'
 def dayOfWeekToStartSprint  = ''    // value to check so we can get the active_sprint value
 def Revert                  = false
+def remove                  = false
 // Pipeline properties
 properties([
     // disableConcurrentBuilds(),
@@ -60,6 +61,9 @@ def GetJsonfile(patch){
             "mmp"    "${getSprintAndMPP[0]}"
         }
         jsonbuilder.content.projects."${hotfix}" = jsonhotfix["${hotfix}"]
+    } else if (removePatch){
+        //remove hotfix
+        ;
     }
         println jsonfile
         return jsonfile
@@ -70,13 +74,16 @@ def parserJsonfile(branch, jsonfile, revert=false){
     def mapOfElement = [:]
     def listOfMMP = []
     JsonBuilder builder = new JsonBuilder(jsonfile)
-    def listBranch = branch.tokenize(",")
+    //def listBranch = branch.tokenize(",")
     builder.content.each { k,v -> 
         v.each { key,value -> 
                 if (revert && value.mmp[0] == params.Major) {    
                     listOfMMP = builder.content.projects."${key}".mmp.tokenize(".")
                     mapOfElement.put(key, listOfMMP)
-                    
+                    // update sprintnumber and version
+                    if(key ){
+                        
+                }
             }
         } 
     }
