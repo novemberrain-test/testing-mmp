@@ -61,12 +61,11 @@ def GetJsonfile(patch){
         }
         jsonbuilder.content.projects."${hotfix}" = jsonhotfix["${hotfix}"]
     }
+        println jsonfile
         return jsonfile
 }
 GetJsonfile(Patch)
-def revert(mapofelement , patch){
-    ;
-}
+
 def parserJsonfile(branch, patch, jsonfile, major, revert=false){
     def mapOfElement = [:]
     def listOfMMP = []
@@ -83,7 +82,7 @@ def parserJsonfile(branch, patch, jsonfile, major, revert=false){
     }
 }
 
-def updateSprintAndVersion (mapofelement, branch, patch){
+def updateSprintAndVersion (jsonfile, mapofelement, branch, patch){
     def temp = ''
     if (!patch){
     for (i in branch){
@@ -92,6 +91,9 @@ def updateSprintAndVersion (mapofelement, branch, patch){
     }
 }
 
+def revert(mapofelement , patch){
+    ;
+}
 def main(){
     stage("testing"){
         parserJsonfile(Branch, Patch, GetJsonfile(Patch), Major, Revert)
