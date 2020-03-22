@@ -66,19 +66,19 @@ def GetJsonfile(patch){
 }
 GetJsonfile(Patch)
 
-def parserJsonfile(branch, patch, jsonfile, major, revert=false){
+def parserJsonfile(branch, patch, jsonfile, revert=false){
     def mapOfElement = [:]
     def listOfMMP = []
     JsonBuilder builder = new JsonBuilder(jsonfile)
     def listBranch = branch.tokenize(",")
     builder.content.each { k,v -> 
         v.each { key,value -> 
-                if (revert && value.mmp[0] == major) {    
+                if (revert && value.mmp[0] == params.Major) {    
                     listOfMMP = builder.content.projects."${key}".mmp.tokenize(".")
                     mapOfElement.put(key, listOfMMP)
+                    
             }
         } 
-        println mapOfElement  
     }
 }
 
