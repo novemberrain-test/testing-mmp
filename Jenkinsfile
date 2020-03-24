@@ -32,10 +32,10 @@ properties([
         string(defaultValue: '', description: 'current sprint', name: 'CurrentSprint', trim: true),
         string(defaultValue: '1', description: 'minor', name: 'Minor', trim: true),
         string(defaultValue: '1', description: 'major', name: 'Major', trim: true),
-        string(defaultValue: '1.1.1,26', description: 'fill full patch version', name: 'AddPatch', trim: true),
-        string(defaultValue: '1.1.1,26', description: 'fill full release version', name: 'AddRelease', trim: true),
+        string(defaultValue: '1.1.1,26', description: 'fulfill patch version', name: 'AddPatch', trim: true),
+        string(defaultValue: '1.1.1,26', description: 'fulfill release version', name: 'AddRelease', trim: true),
         string(defaultValue: '', description: 'Week Of Sprint', name: 'WeekOfSprint', trim: true),
-        string(defaultValue: 'master,develop,release', description: 'branch', name: 'Branch', trim: true),
+        string(defaultValue: 'master,develop,release', description: 'branch need to be updated', name: 'Branch', trim: true),
         booleanParam(defaultValue: false, description: 'revert version', name: 'Revert'),
         booleanParam(defaultValue: false, description: 'remove path', name: 'RemovePatch'),
     ]),
@@ -76,49 +76,69 @@ def GetJsonfile(){
         //remove hotfix
         ;
     }
-        println jsonfile
         return jsonfile
 }
-GetJsonfile()
-
+// @NonCPS
 def parserJsonfile(jsonfile, revert=false){
-    def mapOfElement = [:]
+    def mapOfMMP = [:]
+    def mapOfSprint = [:]
     def listOfMMP = []
+    def listOfSprint = []
     JsonBuilder builder = new JsonBuilder(jsonfile)
     def listBranch = branch.tokenize(",")
     builder.content.each { k,v -> 
         v.each { key,value -> 
                 if (revert && value.mmp[0] == params.Major) {    
-                    listOfMMP = builder.content.projects."${key}".mmp.tokenize(".")
-                    mapOfElement.put(key, listOfMMP)
-                    // update sprintnumber and version
-                    for (i in listBranch){
-                        if(key.contains(i)){
-                            def abc = value.mmp[1].toInterger() + 1
-                            println abc
-                    }
-                }
+                    listOfMMP = builder.content.projects."${key}".mmp.tokenize(".") ; listOfSprint = builder.content.projects."${key}".sprint.tokenize(".")
+                    mapOfSprint.put(key,listOfSprint) ; mapOfMMP.put(key, listOfMMP)
+                //     for (i in listBranch){
+                //         if(key.contains(i)){ 
+                //             // println builder.content.projects."${key}".mmp = mapOfMMP."${key}"
+                //     }
+                // }
             }
         } 
     }
-    println builder.content
+    //  println mapOfElement
+    //  println builder.content
+    return [mapOfMMP, mapOfSprint]
 }
 
-def updateSprintAndVersion (jsonfile, mapofelement, branch, patch){
-    def temp = ''
-    if (!patch){
-    for (i in branch){
-            ;
+def updateSprintAndVersion (data){
+    def updatedMMP = [:]
+    def updatedSprint = [:]
+    // update mmp
+    data[0].each { k,v -> 
+        v[1] = v[1].toInteger() + 1
+        def stringMMP = v.join(".")
+        if (k.contains('release')){
+            k = k.split("/")[0] + '/' + stringMMP 
         }
+        updatedMMP.put(k, stringMMP)
     }
+    // update sprint
+    data[1].each{ k,v -> 
+        number = v[2].toInteger()
+        if (number < 10){
+            v[2] ='0' + (v[2].toInteger() + 1).toString()
+        }else {
+            v[2] = v[2].toInteger() + 1
+        }
+        def stringSprint = v.join(".")
+        updatedSprint.put(k, stringSprint)
+    }
+    println updatedMMP
+    println updatedSprint
 }
-
+    
 def revert(mapofelement , patch){
     ;
 }
 def main(){
     stage("testing"){
-        parserJsonfile(GetJsonfile(), Revert)
+        //parserJsonfile(GetJsonfile(), Revert)
+
+        updateSprintAndVersion(parserJsonfile(GetJsonfile(), Revert))
         }
     }
 
