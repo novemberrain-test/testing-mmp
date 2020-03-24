@@ -91,16 +91,9 @@ def parserJsonfile(jsonfile, revert=false){
                 if (revert && value.mmp[0] == params.Major) {    
                     listOfMMP = builder.content.projects."${key}".mmp.tokenize(".") ; listOfSprint = builder.content.projects."${key}".sprint.tokenize(".")
                     mapOfSprint.put(key,listOfSprint) ; mapOfMMP.put(key, listOfMMP)
-                //     for (i in listBranch){
-                //         if(key.contains(i)){ 
-                //             // println builder.content.projects."${key}".mmp = mapOfMMP."${key}"
-                //     }
-                // }
             }
         } 
     }
-    //  println mapOfElement
-    //  println builder.content
     return [mapOfMMP, mapOfSprint]
 }
 
@@ -127,8 +120,7 @@ def updateSprintAndVersion (data){
         def stringSprint = v.join(".")
         updatedSprint.put(k, stringSprint)
     }
-    println updatedMMP
-    println updatedSprint
+    return [updatedMMP, updatedSprint]
 }
     
 def revert(mapofelement , patch){
@@ -137,11 +129,10 @@ def revert(mapofelement , patch){
 def main(){
     stage("testing"){
         //parserJsonfile(GetJsonfile(), Revert)
-
-        updateSprintAndVersion(parserJsonfile(GetJsonfile(), Revert))
+        println updateSprintAndVersion(parserJsonfile(GetJsonfile(), Revert))[0]
+        println updateSprintAndVersion(parserJsonfile(GetJsonfile(), Revert))[1]
         }
     }
-
 main()
 
 
