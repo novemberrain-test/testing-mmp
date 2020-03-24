@@ -60,7 +60,7 @@ def GetJsonfile(){
     def hotfix = "hotfix/${getSprintAndMPPHotfix[0]}"
     def release = "release/${getSprintAndMPPRelease[0]}"
     def elementbuilder = new JsonBuilder()
-    if (params.AddPatch){         
+    if (AddPatch){         
         def jsonhotfix = elementbuilder."${hotfix}" {
             "sprint" "sprint.${year}.${getSprintAndMPPHotfix[1]}"
             "mmp"    "${getSprintAndMPPHotfix[0]}"
@@ -76,7 +76,8 @@ def GetJsonfile(){
         //remove hotfix
         ;
     }
-        return jsonfile
+        println jsonfile
+        return  jsonfile
 }
 // @NonCPS
 def parserJsonfile(jsonfile, revert=false){
