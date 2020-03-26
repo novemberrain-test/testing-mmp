@@ -81,59 +81,78 @@ def GetJsonfile(){
 }
 // @NonCPS
 def parserJsonfile(jsonfile, revert=false){
-    def mapOfMMP = [:]
-    def mapOfSprint = [:]
-    def listOfMMP = []
-    def listOfSprint = []
+    def mapOfMMPSprint = [:]
+    def listOfMMPSprint = []
     JsonBuilder builder = new JsonBuilder(jsonfile)
-    def listBranch = branch.tokenize(",")
-    builder.content.each { k,v -> 
-        v.each { key,value -> 
-                if (revert && value.mmp[0] == params.Major) {    
-                    listOfMMP = builder.content.projects."${key}".mmp.tokenize(".") ; listOfSprint = builder.content.projects."${key}".sprint.tokenize(".")
-                    mapOfSprint.put(key,listOfSprint) ; mapOfMMP.put(key, listOfMMP)
-            }
-        } 
+    builder.content.projects.each { key,value -> 
+            if (revert && value.mmp[0] == params.Major) {    
+                listOfMMPSprint = builder.content.projects."${key}".mmp.tokenize(".") ; listOfMMPSprint.addAll(builder.content.projects."${key}".sprint.tokenize("."))
+                mapOfMMPSprint.put(key, listOfMMPSprint)
+        }
     }
-    return [mapOfMMP, mapOfSprint]
+    println mapOfMMPSprint
+    return mapOfMMPSprint
+    
 }
 
 def updateSprintAndVersion (data){
-    def updatedMMP = [:]
-    def updatedSprint = [:]
-    // update mmp
-    data[0].each { k,v -> 
+    Map<String,List> updated = new HashMap<>()
+    def key = ''
+    data.each { k,v -> 
+        def listOfbranch = []
+        number = v[5]
         v[1] = v[1].toInteger() + 1
-        def stringMMP = v.join(".")
+        number = v[5].toInteger()
+        if (number < 10){
+            v[5] ='0' + (v[5].toInteger() + 1).toString()
+        }else {
+            v[5] = v[5].toInteger() + 1
+        }
+        stringSprint = v[3..5].join(".")
+        stringMMP = v[0..2].join(".")
+        println stringMMP
         if (k.contains('release')){
             k = k.split("/")[0] + '/' + stringMMP 
         }
-        updatedMMP.put(k, stringMMP)
+    listOfbranch.addAll(stringMMP,stringSprint)
+    updated.put(k, listOfbranch)
     }
-    // update sprint
-    data[1].each{ k,v -> 
-        number = v[2].toInteger()
-        if (number < 10){
-            v[2] ='0' + (v[2].toInteger() + 1).toString()
-        }else {
-            v[2] = v[2].toInteger() + 1
-        }
-        def stringSprint = v.join(".")
-        updatedSprint.put(k, stringSprint)
-    }
-    return [updatedMMP, updatedSprint]
+    println updated
+    return updated
 }
-    
+
 def revert(mapofelement , patch){
     ;
 }
+
 def main(){
     stage("testing"){
-        //parserJsonfile(GetJsonfile(), Revert)
-        println updateSprintAndVersion(parserJsonfile(GetJsonfile(), Revert))[0]
-        println updateSprintAndVersion(parserJsonfile(GetJsonfile(), Revert))[1]
+        // def test = GetJsonfile()
+        // test.
+
+        parserJsonfile(GetJsonfile(), Revert)
+        def updated = updateSprintAndVersion(parserJsonfile(GetJsonfile(), Revert))   
+        JsonBuilder builder = new JsonBuilder(GetJsonfile())
+        updated.each { k,v ->
+                println "---------------"
+                if (k == "master" || k == "develop"){
+                builder.content.projects."${k}".mmp = updated."${k}"[0]
+                builder.content.projects."${k}".sprint = updated."${k}"[1]
+                }
+                // else if(k.contains('release')){
+                    builder.content.projects { key,value ->
+                        if(key.contains('release') && builder.content.projects."${key}".mmp[0] == Major ) {
+                        branchName = k
+                        println branchName 
+                        builder.content.projects.remove(branchName)
+                }
+            }
         }
+            println builder.content
     }
+}
+
+
 main()
 
 
