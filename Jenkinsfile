@@ -1,8 +1,5 @@
 #!/usr/bin/env groovy
 import groovy.json.*
-// latestRelease  = branch.develop
-// branch.develop = 
-// def Node = "node_template" //ffff
 //54687fcf4b9c4f9da4847682b87fc1ff
 def StartDay                = params.StartDay ?: '01-01-2020'
 def EndDay                  = params.EndDay ?: 'end-day'
@@ -76,10 +73,8 @@ def GetJsonfile(){
         //remove hotfix
         ;
     }
-        println jsonfile
         return  jsonfile
 }
-// @NonCPS
 def parserJsonfile(jsonfile, revert=false){
     def mapOfMMPSprint = [:]
     def listOfMMPSprint = []
@@ -90,13 +85,11 @@ def parserJsonfile(jsonfile, revert=false){
                 mapOfMMPSprint.put(key, listOfMMPSprint)
         }
     }
-    println mapOfMMPSprint
-    return mapOfMMPSprint
-    
+    return mapOfMMPSprint   
 }
 
 def updateSprintAndVersion (data){
-    Map<String,List> updated = new HashMap<>()
+    def updated = [:]
     def key = ''
     data.each { k,v -> 
         def listOfbranch = []
@@ -110,87 +103,47 @@ def updateSprintAndVersion (data){
         }
         stringSprint = v[3..5].join(".")
         stringMMP = v[0..2].join(".")
-        println stringMMP
         if (k.contains('release')){
             k = k.split("/")[0] + '/' + stringMMP 
         }
     listOfbranch.addAll(stringMMP,stringSprint)
     updated.put(k, listOfbranch)
     }
-    println updated
     return updated
 }
 
-def revert(mapofelement , patch){
-    ;
-}
+// def revert(mapofelement , patch){
+//     ;
+// }
 
 def main(){
-    stage("testing"){
-        // def test = GetJsonfile()
-        // test.
-
-        parserJsonfile(GetJsonfile(), Revert)
+    def jsonResult = ''
+    stage("Update version sprint"){
+        Calendar now = Calendar.getInstance()
+        def year = now.get(Calendar.YEAR)
         def updated = updateSprintAndVersion(parserJsonfile(GetJsonfile(), Revert))   
-        JsonBuilder builder = new JsonBuilder(GetJsonfile())
-        updated.each { k,v ->
-                println "---------------"
-                if (k == "master" || k == "develop"){
-                builder.content.projects."${k}".mmp = updated."${k}"[0]
-                builder.content.projects."${k}".sprint = updated."${k}"[1]
-                }
-                // else if(k.contains('release')){
-                    builder.content.projects { key,value ->
-                        if(key.contains('release') && builder.content.projects."${key}".mmp[0] == Major ) {
-                        branchName = k
-                        println branchName 
-                        builder.content.projects.remove(branchName)
-                }
-            }
-        }
-            println builder.content
+        JsonBuilder builder = new JsonBuilder(GetJsonfile())    
+            builder.content.projects.each { key,value -> 
+                if(key.contains('release') && value.mmp[0] == Major ) {
+                builder.content.projects.remove(key)
     }
 }
-
-
+        updated.each { k,v ->
+                if (k == "master" || k == "develop"){
+                    builder.content.projects."${k}".mmp = updated."${k}"[0]
+                    builder.content.projects."${k}".sprint = updated."${k}"[1]
+                } else if (k.contains('release')) { 
+                        def data= ['sprint':'', 'mmp':'']           
+                        data.sprint = "${v[1]}"
+                        data.mmp    = "${v[0]}"
+                        builder.content.projects.put(k,data)
+            }               
+        }
+        jsonResult = builder.toPrettyString()
+    }
+    stage('Created PR'){
+        
+    }
+}
 main()
-
-
-// def ParsedDayOfStart(){
-//     return {
-//         day: '',
-//         month: '',
-//         year: ''
-//     }
-// }
-
-// def IsActive(){
-//     return 
-//     pass
-// }
-
-// def IncrementedSprintAndVersion(){
-//     return {
-//         mmp: '',
-//         sprint: ''
-//     }
-// }
-
-// def SuggestReviewer (){
-//     pass
-// }
-
-// def CommitToOriginalFile() {
-
-// }
-
-// def parseJsonFile(){
-
-    
-// }
-
-// def main(){
-//     println GetJsonfile
-// }
-
 return this
