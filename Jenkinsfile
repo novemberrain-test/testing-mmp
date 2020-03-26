@@ -118,7 +118,7 @@ def updateSprintAndVersion (data){
 
 def main(){
     def jsonResult = ''
-    stage("Update version sprint"){
+    stage("Update version && sprint"){
         Calendar now = Calendar.getInstance()
         def year = now.get(Calendar.YEAR)
         def updated = updateSprintAndVersion(parserJsonfile(GetJsonfile(), Revert))   
@@ -140,9 +140,28 @@ def main(){
             }               
         }
         jsonResult = builder.toPrettyString()
+        println jsonResult
     }
     stage('Created PR'){
-        
+        node('master'){
+            dir('test-xray'){
+            cleanWs()
+            checkout changelog: false, poll: false, scm: [
+                $class: 'GitSCM', branches: [[name: 'master']],
+                doGenerateSubmoduleConfigurations: false,
+                extensions: [[
+                    $class: 'CloneOption',
+                    noTags: true,
+                    reference: '',
+                    shallow: true
+                ]],
+                submoduleCfg: [],
+                userRemoteConfigs: [[
+                    url: 'https://github.com/duydoxuan/test-ray.git'
+                ]]
+            ]
+            }
+        }
     }
 }
 main()
