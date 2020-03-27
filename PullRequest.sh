@@ -21,5 +21,6 @@ pull_request() {
 }
  
 # usage
+set -x 
 pull_request              # PR to master
 pull_request other_branch # PR to other_branch
