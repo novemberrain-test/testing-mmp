@@ -118,6 +118,11 @@ def updateSprintAndVersion (data){
 
 def main(){
     def jsonResult = ''
+    stage ("checkout"){
+        node('master'){
+            checkout scm
+        }
+    }
     stage("Update version && sprint"){
         Calendar now = Calendar.getInstance()
         def year = now.get(Calendar.YEAR)
@@ -142,8 +147,11 @@ def main(){
         jsonResult = builder.toPrettyString()
         println jsonResult
     }
+
     stage('Created PR'){
         node('master'){
+            // sh 'cat PullRequest.sh'
+            sh 'ls .'
             dir('test-xray'){
             cleanWs()
             checkout changelog: false, poll: false, scm: [
@@ -162,9 +170,10 @@ def main(){
             ]
             sh 'git remote -v'
             sh "cp ${WORKSPACE}/PullRequest.sh ."
-            sh "./PullRequest.sh"
+            sh "chmod u+x PullRequest.sh && ./PullRequest.sh"
             } //dir block 
         }
+        cleanWs()
     }
 }
 main()
