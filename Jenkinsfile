@@ -171,7 +171,7 @@ def main(){
             sh 'git remote -v'
             sh "cp ${WORKSPACE}/PullRequest.sh ."
             sh "chmod u+x PullRequest.sh && ./PullRequest.sh"
-            } //dir block 
+            } //dir block f
         }
         cleanWs()
     }
