@@ -147,7 +147,7 @@ def main(){
             dir('test-xray'){
             cleanWs()
             checkout changelog: false, poll: false, scm: [
-                $class: 'GitSCM', branches: [[name: 'master']],
+                $class: 'GitSCM', branches: [[name: 'jenkins']],
                 doGenerateSubmoduleConfigurations: false,
                 extensions: [[
                     $class: 'CloneOption',
@@ -160,7 +160,10 @@ def main(){
                     url: 'https://github.com/duydoxuan/test-ray.git'
                 ]]
             ]
-            }
+            sh 'git remote -v'
+            sh "cp ${WORKSPACE}/PullRequest.sh ."
+            sh "./PullRequest.sh"
+            } //dir block 
         }
     }
 }

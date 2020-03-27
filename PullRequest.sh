@@ -1,4 +1,5 @@
 # put this in your .bash_profile
+#!/bin/bash
 pull_request() {
   to_branch=$1
   if [ -z $to_branch ]; then
