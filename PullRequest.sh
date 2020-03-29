@@ -10,8 +10,8 @@ pull_request() {
     to_branch="master"
   fi
   # fetch latest code
-  git remote add upstream $upstreamURL
-  git checkout $BranchOrigin
+  git remote add upstream 'https://github.com/duydoxuan/test-ray.git'
+  git checkout jenkins
   git fetch upstream
   git merge upstream/master
   # try the upstream branch if possible, otherwise origin will do
