@@ -9,7 +9,7 @@ pull_request() {
     to_branch="master"
   fi
   # fetch latest code
-  git remote add upstream ${upstreamURL}
+  git remote add upstream $upstreamURL
   git checkout $BranchOrigin
   git fetch upstream
   git merge upstream/master
