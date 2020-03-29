@@ -1,5 +1,6 @@
 
 #!/bin/bash
+
 upstream='https://github.com/duydoxuan/test-ray.git'
 pull_request() {
   to_branch=$1
@@ -30,5 +31,6 @@ pull_request() {
  
 # usage
 set -x 
+
 pull_request              # PR to master
-pull_request other_branch # PR to other_branch
+pull_request other_branch upstreamURL BranchOrigin  # PR to other_branch
