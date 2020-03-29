@@ -122,6 +122,9 @@ def updateSprintAndVersion (data){
 // }
 
 def main(){
+    def BranchOrigin            = 'jenkins'
+    def BranchUpstream          = 'master'
+    def upstreamURL             = 'https://github.com/duydoxuan/test-ray.git'
     def jsonResult = ''
     def creden     = '72c15752b8eb9f084ae2b1dbd3c4989a3446f469'
 
