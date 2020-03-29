@@ -1,6 +1,9 @@
 #!/usr/bin/env groovy
 import groovy.json.*
 //54687fcf4b9c4f9da4847682b87fc1ff
+def BranchOrigin            = 'jenkins'
+def BranchUpstream          = 'master'
+def upstreamURL             = 'https://github.com/duydoxuan/test-ray.git'
 def StartDay                = params.StartDay ?: '01-01-2020'
 def EndDay                  = params.EndDay ?: 'end-day'
 def CurrentSprint           = params.CurrentSprint ?: ''
@@ -14,6 +17,8 @@ def credentialsID           = 'github'
 def dayOfWeekToStartSprint  = ''    // value to check so we can get the active_sprint value
 def Revert                  = false
 def RemovePatch             = false
+def User                    = 'github'
+def Pass                    = '72c15752b8eb9f084ae2b1dbd3c4989a3446f469 '
 // Pipeline properties
 properties([
     // disableConcurrentBuilds(),
@@ -118,6 +123,8 @@ def updateSprintAndVersion (data){
 
 def main(){
     def jsonResult = ''
+    def creden     = '72c15752b8eb9f084ae2b1dbd3c4989a3446f469'
+
     stage ("checkout"){
         node('master'){
             checkout scm
@@ -150,8 +157,6 @@ def main(){
 
     stage('Created PR'){
         node('master'){
-            // sh 'cat PullRequest.sh'
-            sh 'ls .'
             dir('test-xray'){
             cleanWs()
             checkout changelog: false, poll: false, scm: [
@@ -165,15 +170,14 @@ def main(){
                 ]],
                 submoduleCfg: [],
                 userRemoteConfigs: [[
-                    url: 'https://github.com/duydoxuan/test-ray.git'
+                    url: 'https://github.com/novemberrain-test/test-ray.git'
                 ]]
             ]
-            sh 'git remote -v'
-            sh "cp ${WORKSPACE}/PullRequest.sh ."
-            sh "chmod u+x PullRequest.sh && ./PullRequest.sh"
+            sh(script: "./PullRequest.sh ${BranchUpstream} ${upstreamURL} ${BranchOrigin}")
+
+            // sh """ curl -v -u 'duydoxuan':'duy@2708' -H "Content-Type:application/json" -X POST https://api.github.com/repos/duydoxuan/test-ray/pulls -d '{"title":"[new module] azure_rm_mysqldatabase", "body": "##### SUMMARY\nAdding support for Azure SQL Databases\n\n##### ISSUE TYPE\n - New Module Pull Request\n\n##### COMPONENT NAME\n\nazure_rm_sql_databases\n\n##### ANSIBLE VERSION\n\n 2.4\n\n##### ADDITIONAL INFORMATION\n\n", "head": "VSChina:azure_rm_mysqldatabase", "base": "master"}'"""
             } //dir block ff
         }
-        cleanWs()
     }
 }
 main()
