@@ -170,7 +170,7 @@ def main(){
                 sh(script: "chmod 755 PullRequest.sh && ./PullRequest.sh ${USERNAME} ${PASSWORD}")
                     }                    
                 } catch(Exception ex){
-                    cleanWs
+                    cleanWs()
                 }
             }//dir block 
         }
