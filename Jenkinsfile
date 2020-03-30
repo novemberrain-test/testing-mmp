@@ -186,7 +186,7 @@ def main(){
             withCredentials([usernamePassword(credentialsId: 'de74115a-88ca-446e-aac1-fb8e0122f528', usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD')]) {
                 sh(script: "chmod 755 PullRequest.sh && ./PullRequest.sh ${USERNAME} ${PASSWORD}")
                 }                    
-            // sh """ curl -v -u 'duydoxuan':'duy@2708' -H "Content-Type:application/json" -X POST https://api.github.com/repos/duydoxuan/test-ray/pulls -d '{"title":"[new module] azure_rm_mysqldatabase", "body": "##### SUMMARY\nAdding support for Azure SQL Databases\n\n##### ISSUE TYPE\n - New Module Pull Request\n\n##### COMPONENT NAME\n\nazure_rm_sql_databases\n\n##### ANSIBLE VERSION\n\n 2.4\n\n##### ADDITIONAL INFORMATION\n\n", "head": "VSChina:azure_rm_mysqldatabase", "base": "master"}'"""
+            sh """ curl -v -u 'duydoxuan':'duy@2708' -H "Content-Type:application/json" -X POST https://api.github.com/repos/duydoxuan/test-ray/pulls -d '{"title":"[new module] azure_rm_mysqldatabase", "body": "##### SUMMARY\nAdding support for Azure SQL Databases\n\n##### ISSUE TYPE\n - New Module Pull Request\n\n##### COMPONENT NAME\n\nazure_rm_sql_databases\n\n##### ANSIBLE VERSION\n\n 2.4\n\n##### ADDITIONAL INFORMATION\n\n", "head": "VSChina:azure_rm_mysqldatabase", "base": "master"}'"""
             } //dir block ff
             cleanWs()
         }
