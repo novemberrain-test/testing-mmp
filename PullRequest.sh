@@ -1,15 +1,15 @@
 
 #!/bin/bash
-
+to_branch=$1
+upstreamURL=$2
+BranchOrigin=$3
 upstream='https://github.com/duydoxuan/test-ray.git'
 pull_request() {
-  to_branch=$1
-  upstreamURL=$2
-  BranchOrigin=$3
+  
   if [ -z $to_branch ]; then
     to_branch="master"
   fi
-  # fetch latest code
+  # fetch latest code 
   git remote add upstream 'https://github.com/duydoxuan/test-ray.git'
   git checkout jenkins
   git fetch upstream
@@ -33,4 +33,5 @@ pull_request() {
 set -x 
 
 pull_request              # PR to master
-pull_request other_branch upstreamURL BranchOrigin  # PR to other_branch
+pull_request other_branch upstreamURL BranchOrigin  # PR to other_branch\
+
