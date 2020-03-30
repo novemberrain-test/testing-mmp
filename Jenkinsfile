@@ -175,12 +175,11 @@ def main(){
                     url: 'https://github.com/novemberrain-test/test-ray.git'
                 ]]
             ]
-            //update file version.json
+            //update file version.json                    
+            sh "cp ${WORKSPACE}/PullRequest.sh ."
             writeJSON file: 'ver.json', json: jsonResult
             withCredentials([usernamePassword(credentialsId: 'de74115a-88ca-446e-aac1-fb8e0122f528', usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD')]) {
-                sh 'echo $PASSWORD'
-                echo USERNAME
-                echo "username is $USERNAME"
+                    sh(script: "chmod 755 PullRequest.sh && ./PullRequest.sh ${BranchUpstream} ${UpstreamURL} ${BranchOrigin}")
                 }                    
                 // sh "cp ${WORKSPACE}/PullRequest.sh ."
                 // sh(script: "chmod 755 PullRequest.sh && ./PullRequest.sh ${BranchUpstream} ${UpstreamURL} ${BranchOrigin}")
