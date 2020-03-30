@@ -127,7 +127,7 @@ def main(){
             checkout scm
         }
     }
-    if (AddItem == false) { 
+    // if (AddItem == false) { 
         stage("Update version && sprint"){
             Calendar now = Calendar.getInstance()
             def year = now.get(Calendar.YEAR)
@@ -152,7 +152,7 @@ def main(){
         jsonResult = builder.toPrettyString()
         println jsonResult
     }
-}
+// }
     stage('Created PR'){
         node('master'){
             dir('test-xray'){         
