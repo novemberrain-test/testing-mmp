@@ -8,7 +8,7 @@ git config --global user.email "jenkins@humana.com"
 #clone form kubertest
 git clone -b jenkins https://${user_name}:${password}@github.com/novemberrain-test/test-ray.git
 cd test-ray
-# git remote add upstream git@github.com:duydoxuan/test-ray.git
+git remote add upstream git@github.com:duydoxuan/test-ray.git
 git remote -v 
 # fetch latest code from upstream
 git fetch https://${user_name}:${password}@github.com/duydoxuan/test-ray.git master
