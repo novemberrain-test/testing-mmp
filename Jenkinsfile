@@ -180,8 +180,8 @@ def main(){
             sh "cp ${WORKSPACE}/PullRequest.sh ."
             sh "git checkout jenkins"
 
-             def json = readJSON text : jsonResult
-             writeJSON file: 'ver.json', json: json, pretty: 2
+            //  def json = readJSON text : jsonResult
+            writeJSON file: 'ver.json', json: jsonResult, pretty: 5
 
             withCredentials([usernamePassword(credentialsId: 'de74115a-88ca-446e-aac1-fb8e0122f528', usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD')]) {
                 sh(script: "chmod 755 PullRequest.sh && ./PullRequest.sh ${USERNAME} ${PASSWORD}")
