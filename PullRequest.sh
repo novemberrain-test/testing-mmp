@@ -15,7 +15,7 @@ git fetch https://${user_name}:${password}@github.com/duydoxuan/test-ray.git mas
 git merge upstream/master
 #
 mv ver.json ver.json.bak
-mv ver.json.pre ver.json
+mv ../ver.json.pre ver.json
 # push code
 git add ver.json
 git commit -am "test"
