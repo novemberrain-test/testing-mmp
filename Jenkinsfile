@@ -181,7 +181,7 @@ def main(){
             sh "git checkout jenkins"
             // def json = readJSON text : jsonResult
             // writeJSON file: 'ver.json', json: json
-            sh "mv version.json version.json.bak"
+            sh "mv ver.json ver.json.bak"
             def newJsonfile = 'ver.json'
             def fileWriter = new File(newJsonfile)
             fileWriter.write(jsonResult)
