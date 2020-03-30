@@ -176,7 +176,12 @@ def main(){
                 ]]
             ]
             //update file version.json
-            sh 'ls'
+            writeJSON file: 'ver.json', json: jsonResult
+            //
+            sh 'cat ver.json'
+            sh """git checkout ${BranchOrigin} \\
+                
+            """
 
 
             sh "cp ${WORKSPACE}/PullRequest.sh ."
