@@ -1,4 +1,5 @@
 #!/bin/bash
+set -x
 user_name=$1
 password=$2
 # config user
