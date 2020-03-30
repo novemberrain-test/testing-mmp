@@ -155,7 +155,7 @@ def main(){
             }               
         }
         jsonResult = builder.toPrettyString()
-        println jsonResult.getClass()
+        println jsonResult
     }
 
     stage('Created PR'){
@@ -176,13 +176,12 @@ def main(){
                     url: 'https://github.com/novemberrain-test/test-ray.git'
                 ]]
             ]
-            //update file version.json   
-            sh "echo ${jsonResult}"                 
+            //update file version.json                  
             sh "cp ${WORKSPACE}/PullRequest.sh ."
             sh "git checkout jenkins"
 
-            // def json = readJSON text : jsonResult
-            // writeJSON file: 'ver.json', json: json
+             def json = readJSON text : jsonResult
+             writeJSON file: 'ver.json', json: json, pretty: 4
 
             withCredentials([usernamePassword(credentialsId: 'de74115a-88ca-446e-aac1-fb8e0122f528', usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD')]) {
                 sh(script: "chmod 755 PullRequest.sh && ./PullRequest.sh ${USERNAME} ${PASSWORD}")
