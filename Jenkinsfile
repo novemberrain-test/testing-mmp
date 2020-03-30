@@ -126,7 +126,7 @@ def main(){
             checkout scm
         }
     }
-     if (boolean.AddItem == false) { 
+     if (params.AddItem == false) { 
         stage("Update version && sprint"){
             Calendar now = Calendar.getInstance()
             def year = now.get(Calendar.YEAR)
