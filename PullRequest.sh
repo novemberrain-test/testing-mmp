@@ -1,17 +1,17 @@
 
 #!/bin/bash
-
-
+user_name=$1
+password=$2
 
 #config user
-git config --global user.name "duydoxuan"
-git config --global user.email "duydxbit@gmail.com"
+git config --global user.name "jenkins"
+git config --global user.email "jenkins@gmail.com"
 
 git checkout jenkins
 
 git add .
 git commit -am "test"
-git push origin jenkins
+git push "https://${user_name}:${password}@github.com/novemberrain-test/test-ray.git" jenkins
 
 
 

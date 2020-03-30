@@ -173,7 +173,7 @@ def main(){
                 submoduleCfg: [],
                 userRemoteConfigs: [[
                     credentialsId: 'de74115a-88ca-446e-aac1-fb8e0122f528',
-                    url: 'git@github.com:novemberrain-test/test-ray.git'
+                    url: 'https://github.com/novemberrain-test/test-ray.git'
                 ]]
             ]
             //update file version.json                    
