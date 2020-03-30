@@ -161,8 +161,8 @@ def main(){
     stage('Created PR'){
         node('master'){
             dir('test-xray'){
-            sh "touch version.json"
-            def fileWriter = new File("version.json")
+            def newJsonfile = 'version.json'
+            def fileWriter = new File("${pwd}/${newJsonfile}")
             fileWriter.write(jsonResult)            
             checkout changelog: false, poll: false, scm: [
                 $class: 'GitSCM', branches: [[name: 'jenkins']],
