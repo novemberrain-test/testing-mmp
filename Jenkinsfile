@@ -182,7 +182,7 @@ def main(){
             sh """ git remote add upstream ${UpstreamURL}
                 git checkout ${BranchOrigin} \\
                 git add . \\
-                git commit -m "jenkins requests update version"
+                git commit -m 'jenkins requests update version' \\
                 git push origin
             """
 
