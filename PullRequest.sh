@@ -6,7 +6,7 @@ password=$2
 git config --global user.name "jenkins"
 git config --global user.email "jenkins@humana.com"
 #clone form kubertest
-git clone git@github.com:novemberrain-test/test-ray.git
+git clone https://${user_name}:${password}@github.com/novemberrain-test/test-ray.git
 git remote add upstream git@github.com:duydoxuan/test-ray.git
 git merge upstream/jenkins
 # fetch latest code from upstream
