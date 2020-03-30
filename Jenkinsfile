@@ -47,6 +47,7 @@ properties([
 //  
 // Enable color console
 env.TERM = "xterm"
+
 @NonCPS
 def GetJsonfile(){
     Calendar now = Calendar.getInstance()
@@ -120,7 +121,17 @@ def updateSprintAndVersion (data){
 // }
 
 def main(){
+
+if (params.AddItem == true){
+    if(!AddPatch || !AddRelease){
+        currentBuild.result = 'FAILURE'
+        return
+    }
+}
+
     def jsonResult = ''
+
+    
     stage ("checkout"){
         node('master'){
             checkout scm
@@ -158,7 +169,8 @@ def main(){
             //update file version.json                  
             sh "cp ${WORKSPACE}/PullRequest.sh ."
             if(params.AddItem == true){
-                jsonResult = GetJsonfile().toString()
+                JsonBuilder builder = new JsonBuilder(GetJsonfile())
+                jsonResult = builder.toPrettyString()
             }
             println jsonResult
             writeJSON file: 'ver.json.pre', json: jsonResult, pretty: 5
