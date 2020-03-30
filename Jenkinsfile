@@ -37,7 +37,7 @@ properties([
         string(defaultValue: 'master,develop,release', description: 'branch need to be updated', name: 'Branch', trim: true),
         booleanParam(defaultValue: false, description: 'revert version', name: 'Revert'),
         booleanParam(defaultValue: false, description: 'remove path', name: 'RemovePatch'),
-        booleanParam(defaultValue: false, description: 'add item', name: 'addItem'),
+        booleanParam(defaultValue: false, description: 'add item', name: 'AddItem'),
     ]),
     pipelineTriggers([
         // cron('0 H/24 * * *'),
