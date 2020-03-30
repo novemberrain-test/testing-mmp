@@ -16,6 +16,7 @@ git merge origin/master
 cd novemberrain-test && mv ver.json ver.json.bak
 mv version.json novemberrain-test/ver.json
 # push code
+cd novemberrain-test
 git add ver.json
 git commit -am "test"
 # git push "https://${user_name}:${password}@github.com/novemberrain-test/test-ray.git" jenkins
