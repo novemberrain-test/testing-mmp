@@ -179,8 +179,8 @@ def main(){
             writeJSON file: 'ver.json', json: jsonResult
             //
             sh 'cat ver.json'
-            sh """ git remote add upstream ${UpstreamURL}
-                git checkout ${BranchOrigin} \\
+            //git remote add upstream ${UpstreamURL}           
+            sh """  git checkout ${BranchOrigin} \\
                 git add . \\
                 git commit -m 'jenkins requests update version' \\
                 git push origin
