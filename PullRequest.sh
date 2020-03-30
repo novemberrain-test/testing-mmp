@@ -19,4 +19,4 @@ mv ../ver.json.pre ver.json
 # push code
 git add ver.json
 git commit -am "test"
-git push  https://${user_name}:${password}@github.com/novemberrain-test/test-ray.git 
+git push  
