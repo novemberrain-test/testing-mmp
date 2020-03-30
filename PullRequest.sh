@@ -4,8 +4,8 @@
 
 
 #config user
-git config --global user.name "jenkins"
-git config --global user.email "jenkins@humana.com"
+git config --global user.name "duydoxuan"
+git config --global user.email "duydxbit@gmail.com"
 
 git checkout jenkins
 
