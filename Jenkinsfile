@@ -124,6 +124,7 @@ def main(){
 
 if (params.AddItem == true){
     if(!AddPatch || !AddRelease){
+        println "Please help to set either the params addrelase or the params addpath"
         currentBuild.result = 'FAILURE'
         return
     }
@@ -131,7 +132,7 @@ if (params.AddItem == true){
 
     def jsonResult = ''
 
-    
+
     stage ("checkout"){
         node('master'){
             checkout scm
