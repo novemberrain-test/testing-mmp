@@ -117,7 +117,7 @@ def updateSprintAndVersion (data){
 def main(){
 
 if (params.AddItem == true){
-    if(!papams.AddPatch && !params.AddRelease){
+    if(!params.AddPatch && !params.AddRelease){
         println "Please help to set either the params addrelase or the params addpath"
         currentBuild.result = 'FAILURE'
         return
