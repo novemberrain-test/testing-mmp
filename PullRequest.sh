@@ -14,7 +14,7 @@ git fetch https://${user_name}:${password}@github.com/duydoxuan/test-ray.git mas
 git merge origin/master
 #
 cd novemberrain-test && mv ver.json ver.json.bak
-mv version.json novemberrain-test/ver.json
+mv ver.json.pre novemberrain-test/ver.json
 # push code
 cd novemberrain-test
 git add ver.json
