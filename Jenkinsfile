@@ -121,13 +121,13 @@ def updateSprintAndVersion (data){
 
 def main(){
     //If expression is true; set value to a else set value to b
-    def jsonResult = (AddItem==false)? '' :  GetJsonfile()
+    def jsonResult = ''
     stage ("checkout"){
         node('master'){
             checkout scm
         }
     }
-    if (AddItem == false) {
+    if (AddItem == false) { 
         stage("Update version && sprint"){
             Calendar now = Calendar.getInstance()
             def year = now.get(Calendar.YEAR)
@@ -158,6 +158,9 @@ def main(){
             dir('test-xray'){         
             //update file version.json                  
             sh "cp ${WORKSPACE}/PullRequest.sh ."
+            if(AddItem == true){
+                jsonResult = GetJsonfile()
+            }
             writeJSON file: 'ver.json.pre', json: jsonResult, pretty: 5
             // git 
             try {
