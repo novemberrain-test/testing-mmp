@@ -9,7 +9,7 @@ git config --global user.email "jenkins@humana.com"
 git clone https://${user_name}:${password}@github.com/novemberrain-test/test-ray.git
 # git remote add upstream git@github.com:duydoxuan/test-ray.git
 git remote -v 
-git merge upstream/jenkins
+git merge upstream/master
 # fetch latest code from upstream
 git fetch upstream 
 git merge origin/master
