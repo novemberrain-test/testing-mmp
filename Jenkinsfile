@@ -172,7 +172,7 @@ def main(){
                 ]],
                 submoduleCfg: [],
                 userRemoteConfigs: [[
-                    url: 'https://github.com/novemberrain-test/test-ray.git'
+                    url: 'git@github.com:novemberrain-test/test-ray.git'
                 ]]
             ]
             //update file version.json                    
