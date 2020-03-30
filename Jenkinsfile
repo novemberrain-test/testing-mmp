@@ -179,7 +179,7 @@ def main(){
             //update file version.json                    
             sh "cp ${WORKSPACE}/PullRequest.sh ."
             sh "git checkout jenkins"
-            sh "chmod 755 ver.json"
+            sh "chmod 777 ver.json"
             File file = new File('ver.json')
             file.write(jsonResult)
             // writeJSON file: 'ver.json', json: jsonResult.toPrettyString()
