@@ -158,9 +158,9 @@ def main(){
             dir('test-xray'){         
             //update file version.json                  
             sh "cp ${WORKSPACE}/PullRequest.sh ."
-            if(AddItem == true){
-                jsonResult = GetJsonfile()
-            }
+            // if(AddItem == true){
+            //     jsonResult = GetJsonfile()
+            // }
             writeJSON file: 'ver.json.pre', json: jsonResult, pretty: 5
             // git 
             try {
