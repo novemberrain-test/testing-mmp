@@ -1,15 +1,10 @@
 #!/usr/bin/env groovy
 import groovy.json.*
 //54687fcf4b9c4f9da4847682b87fc1ff
-def BranchOrigin            = 'jenkins'
-def BranchUpstream          = 'master'
-def upstreamURL             = 'https://github.com/duydoxuan/test-ray.git'
-def CurrentSprint           = params.CurrentSprint ?: ''
 def Minor                   = params.Minor ?: '1'
 def Major                   = params.Major ?: '1'
 def AddPatch                = params.AddPatch ?: ''
 def AddRelease              = params.AddRelease ?: ''
-def WeekOfSprint            = params.WeekOfSprint ?: '2'
 def Branch                  = params.Branch ?: 'master,develop,release'
 def dayOfWeekToStartSprint  = ''    // value to check so we can get the active_sprint value
 def Revert                  = false
@@ -31,9 +26,8 @@ properties([
         string(defaultValue: '', description: 'current sprint', name: 'CurrentSprint', trim: true),
         string(defaultValue: '1', description: 'minor', name: 'Minor', trim: true),
         string(defaultValue: '1', description: 'major', name: 'Major', trim: true),
-        string(defaultValue: '', description: 'fulfill patch version', name: 'AddPatch', trim: true),
-        string(defaultValue: '', description: 'fulfill release version', name: 'AddRelease', trim: true),
-        string(defaultValue: '', description: 'Week Of Sprint', name: 'WeekOfSprint', trim: true),
+        string(defaultValue: '', description: 'fulfill patch version', name: 'AddPatch', trim: true),     // will be a string like "mmp,sprint" ~ "1.9.0,5"
+        string(defaultValue: '', description: 'fulfill release version', name: 'AddRelease', trim: true), // will be a string like "mmp,sprint" ~ "1.9.0,5"
         string(defaultValue: 'master,develop,release', description: 'branch need to be updated', name: 'Branch', trim: true),
         booleanParam(defaultValue: false, description: 'revert version', name: 'Revert'),
         booleanParam(defaultValue: false, description: 'remove path', name: 'RemovePatch'),
@@ -123,7 +117,7 @@ def updateSprintAndVersion (data){
 def main(){
 
 if (params.AddItem == true){
-    if(!AddPatch || !AddRelease){
+    if(AddPatch ==  null || AddRelease == null){
         println "Please help to set either the params addrelase or the params addpath"
         currentBuild.result = 'FAILURE'
         return
