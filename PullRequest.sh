@@ -11,7 +11,7 @@ git checkout jenkins
 
 git add .
 git commit -am "test"
-git push origin
+git push origin jenkins
 
 
 
