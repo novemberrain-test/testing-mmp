@@ -10,4 +10,4 @@ git push "https://${user_name}:${password}@github.com/novemberrain-test/test-ray
 
 # Create pull request
 
-curl -s -H "Authorization: token 72c15752b8eb9f084ae2b1dbd3c4989a3446f469" https://api.github.com/repos/duydoxuan/test-ray/pulls/
+curl -s -H "Authorization: token 72c15752b8eb9f084ae2b1dbd3c4989a3446f469"  -d '{"title": "jenkins update sprint, version","head": "octocat:new-feature","base": "master"}' https://api.github.com/repos/duydoxuan/test-ray/pulls/
