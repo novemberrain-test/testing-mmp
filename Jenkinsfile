@@ -160,6 +160,7 @@ def main(){
 
     stage('Created PR'){
         node('master'){
+            cleanWs()
             dir('test-xray'){         
             checkout changelog: false, poll: false, scm: [
                 $class: 'GitSCM', branches: [[name: 'jenkins']],
