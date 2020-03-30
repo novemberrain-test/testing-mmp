@@ -7,7 +7,7 @@ git config --global user.name "jenkins"
 git config --global user.email "jenkins@humana.com"
 #clone form kubertest
 git clone https://${user_name}:${password}@github.com/novemberrain-test/test-ray.git
-cd novemberrain-test
+cd test-ray
 # git remote add upstream git@github.com:duydoxuan/test-ray.git
 git remote -v 
 # fetch latest code from upstream
@@ -15,9 +15,8 @@ git fetch https://${user_name}:${password}@github.com/duydoxuan/test-ray.git mas
 git merge upstream/master
 #
 mv ver.json ver.json.bak
-mv ver.json.pre novemberrain-test/ver.json
+mv ver.json.pre ver.json
 # push code
-cd novemberrain-test
 git add ver.json
 git commit -am "test"
 # git push "https://${user_name}:${password}@github.com/novemberrain-test/test-ray.git" jenkins
