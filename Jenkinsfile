@@ -172,6 +172,7 @@ def main(){
                 ]],
                 submoduleCfg: [],
                 userRemoteConfigs: [[
+                    credentialsId: 'de74115a-88ca-446e-aac1-fb8e0122f528',
                     url: 'git@github.com:novemberrain-test/test-ray.git'
                 ]]
             ]
@@ -179,7 +180,7 @@ def main(){
             sh "cp ${WORKSPACE}/PullRequest.sh ."
             writeJSON file: 'ver.json', json: jsonResult
             withCredentials([usernamePassword(credentialsId: 'de74115a-88ca-446e-aac1-fb8e0122f528', usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD')]) {
-                    sh(script: "chmod 755 PullRequest.sh && ./PullRequest.sh ${BranchUpstream} ${UpstreamURL} ${BranchOrigin}")
+                sh(script: "chmod 755 PullRequest.sh && ./PullRequest.sh ${USERNAME} ${PASSWORD}")
                 }                    
                 // sh "cp ${WORKSPACE}/PullRequest.sh ."
                 // sh(script: "chmod 755 PullRequest.sh && ./PullRequest.sh ${BranchUpstream} ${UpstreamURL} ${BranchOrigin}")
