@@ -4,8 +4,6 @@ import groovy.json.*
 def BranchOrigin            = 'jenkins'
 def BranchUpstream          = 'master'
 def upstreamURL             = 'https://github.com/duydoxuan/test-ray.git'
-def StartDay                = params.StartDay ?: '01-01-2020'
-def EndDay                  = params.EndDay ?: 'end-day'
 def CurrentSprint           = params.CurrentSprint ?: ''
 def Minor                   = params.Minor ?: '1'
 def Major                   = params.Major ?: '1'
@@ -13,12 +11,11 @@ def AddPatch                = params.AddPatch ?: ''
 def AddRelease              = params.AddRelease ?: ''
 def WeekOfSprint            = params.WeekOfSprint ?: '2'
 def Branch                  = params.Branch ?: 'master,develop,release'
-def credentialsID           = 'github'
 def dayOfWeekToStartSprint  = ''    // value to check so we can get the active_sprint value
 def Revert                  = false
 def RemovePatch             = false
-def User                    = 'github'
-def Pass                    = '72c15752b8eb9f084ae2b1dbd3c4989a3446f469 '
+def AddItem                 = false
+
 // Pipeline properties
 properties([
     // disableConcurrentBuilds(),
@@ -40,6 +37,7 @@ properties([
         string(defaultValue: 'master,develop,release', description: 'branch need to be updated', name: 'Branch', trim: true),
         booleanParam(defaultValue: false, description: 'revert version', name: 'Revert'),
         booleanParam(defaultValue: false, description: 'remove path', name: 'RemovePatch'),
+        booleanParam(defaultValue: false, description: 'add item', name: 'addItem'),
     ]),
     pipelineTriggers([
         // cron('0 H/24 * * *'),
@@ -133,17 +131,18 @@ def main(){
             checkout scm
         }
     }
-    stage("Update version && sprint"){
-        Calendar now = Calendar.getInstance()
-        def year = now.get(Calendar.YEAR)
-        def updated = updateSprintAndVersion(parserJsonfile(GetJsonfile(), Revert))   
-        JsonBuilder builder = new JsonBuilder(GetJsonfile())    
-            builder.content.projects.each { key,value -> 
-                if(key.contains('release') && value.mmp[0] == Major ) {
-                builder.content.projects.remove(key)
+    if (AddItem == false) {
+        stage("Update version && sprint"){
+            Calendar now = Calendar.getInstance()
+            def year = now.get(Calendar.YEAR)
+            def updated = updateSprintAndVersion(parserJsonfile(GetJsonfile(), Revert))   
+            JsonBuilder builder = new JsonBuilder(GetJsonfile())    
+                builder.content.projects.each { key,value -> 
+                    if(key.contains('release') && value.mmp[0] == Major ) {
+                    builder.content.projects.remove(key)
     }
 }
-        updated.each { k,v ->
+            updated.each { k,v ->
                 if (k == "master" || k == "develop"){
                     builder.content.projects."${k}".mmp = updated."${k}"[0]
                     builder.content.projects."${k}".sprint = updated."${k}"[1]
@@ -157,7 +156,7 @@ def main(){
         jsonResult = builder.toPrettyString()
         println jsonResult
     }
-
+}
     stage('Created PR'){
         node('master'){
             dir('test-xray'){         

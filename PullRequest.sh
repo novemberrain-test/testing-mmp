@@ -3,8 +3,8 @@ set -x
 # user_name=$1
 # password=$2
 # config user
-git config --global user.name "duydoxuan"
-git config --global user.email "duydxbit@gmail.com"
+git config --global user.name "jenkins"
+git config --global user.email "jenkins@humana.com"
 #clone form kubertest
 git clone -b jenkins git@github.com:novemberrain-test/test-ray.git
 cd test-ray
