@@ -7,7 +7,6 @@ password=$2
 git config --global user.name "jenkins"
 git config --global user.email "jenkins@gmail.com"
 
-git checkout jenkins
 
 git add .
 git commit -am "test"
