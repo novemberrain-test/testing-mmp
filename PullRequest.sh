@@ -14,9 +14,9 @@ git remote -v
 git fetch https://${user_name}:${password}@github.com/duydoxuan/test-ray.git master
 git merge upstream/master
 #
-mv ver.json ver.json.bak
+mv ver.json ../ver.json.bak
 mv ../ver.json.pre ver.json
 # push code
 git add ver.json
-git commit -am "test"
+git commit -am "jenkins"
 git push  
