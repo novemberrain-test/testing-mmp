@@ -11,7 +11,7 @@ cd test-ray
 git remote add upstream https://github.com/novemberrain-test/test-ray.git
 git remote -v 
 # fetch latest code from upstream
-git fetch https://${user_name}:${password}@github.com/duydoxuan/test-ray.git master
+git fetch upstream
 git merge upstream/master
 #
 mv ver.json ../ver.json.bak
