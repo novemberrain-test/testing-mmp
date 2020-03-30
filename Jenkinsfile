@@ -162,7 +162,7 @@ def main(){
         node('master'){
             dir('test-xray'){
             def newJsonfile = 'version.json'
-            def fileWriter = new File("${PWD}}/${newJsonfile}")
+            def fileWriter = new File("${PWD}/${newJsonfile}")
 
             fileWriter.write(jsonResult)            
             checkout changelog: false, poll: false, scm: [
