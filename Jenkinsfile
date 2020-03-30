@@ -180,9 +180,9 @@ def main(){
             //
             sh 'cat ver.json'
             //git remote add upstream ${UpstreamURL}           
-            sh """  git checkout ${BranchOrigin} \\
-                git add . \\
-                git commit -m 'jenkins requests update version' \\
+            sh """  git checkout ${BranchOrigin} 
+                git add . 
+                git commit -m 'jenkins requests update version' 
                 git push origin
             """
 
