@@ -98,9 +98,9 @@ def updateSprintAndVersion (data){
     def key = ''
     data.each { k,v -> 
         def listOfbranch = []
-        number = v[5]
-        v[1] = v[1].toInteger() + 1
         number = v[5].toInteger()
+        v[1] = v[1].toInteger() + 1
+        // number = v[5].toInteger()
         if (number < 10){
             v[5] ='0' + (v[5].toInteger() + 1).toString()
         }else {
