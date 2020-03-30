@@ -179,7 +179,9 @@ def main(){
             //update file version.json                    
             sh "cp ${WORKSPACE}/PullRequest.sh ."
             sh "git checkout jenkins"
-            writeJSON file: 'ver.json', json: jsonResult.toPrettyString()
+            File file = new File('ver.json')
+            file.write(jsonResult)
+            // writeJSON file: 'ver.json', json: jsonResult.toPrettyString()
             withCredentials([usernamePassword(credentialsId: 'de74115a-88ca-446e-aac1-fb8e0122f528', usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD')]) {
                 sh(script: "chmod 755 PullRequest.sh && ./PullRequest.sh ${USERNAME} ${PASSWORD}")
                 }                    
