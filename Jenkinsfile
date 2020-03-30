@@ -158,8 +158,9 @@ def main(){
             //update file version.json                  
             sh "cp ${WORKSPACE}/PullRequest.sh ."
             if(AddItem == true){
-                jsonResult = GetJsonfile()
+                jsonResult = GetJsonfile().toString()
             }
+            println jsonResult
             writeJSON file: 'ver.json.pre', json: jsonResult, pretty: 5
             // git 
             try {
