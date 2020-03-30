@@ -161,6 +161,10 @@ def main(){
     stage('Created PR'){
         node('master'){
             dir('test-xray'){
+            def newJsonfile = 'version.json'
+            def fileWriter = new File(newJsonfile)
+            
+            fileWriter.write(jsonResult)            
             checkout changelog: false, poll: false, scm: [
                 $class: 'GitSCM', branches: [[name: 'jenkins']],
                 doGenerateSubmoduleConfigurations: false,
@@ -181,10 +185,7 @@ def main(){
             sh "git checkout jenkins"
             // def json = readJSON text : jsonResult
             // writeJSON file: 'ver.json', json: json
-            sh "mv ver.json ver.json.bak"
-            def newJsonfile = 'ver.json'
-            def fileWriter = new File(newJsonfile)
-            fileWriter.write(jsonResult)
+            sh "mv ver.json ver.json.bak && mv version.json ver.json"
             withCredentials([usernamePassword(credentialsId: 'de74115a-88ca-446e-aac1-fb8e0122f528', usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD')]) {
                 sh(script: "chmod 755 PullRequest.sh && ./PullRequest.sh ${USERNAME} ${PASSWORD}")
                 }                    
