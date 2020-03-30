@@ -176,12 +176,14 @@ def main(){
                 ]]
             ]
             //update file version.json
-            writeJSON file: 'ver.json', json: jsonResult    
-            withCredentials([credentialsId: 'github']) {
-            // sh('git push https://${GIT_USERNAME}:${GIT_PASSWORD}@github.com/my-org/my-repo.git')                    
-                sh "cp ${WORKSPACE}/PullRequest.sh ."
-                sh(script: "chmod 755 PullRequest.sh && ./PullRequest.sh ${BranchUpstream} ${UpstreamURL} ${BranchOrigin}")
-            }
+            writeJSON file: 'ver.json', json: jsonResult
+            withCredentials([usernamePassword(credentialsId: 'github', usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD')]) {
+                sh 'echo $PASSWORD'
+                echo USERNAME
+                echo "username is $USERNAME"
+                }                    
+                // sh "cp ${WORKSPACE}/PullRequest.sh ."
+                // sh(script: "chmod 755 PullRequest.sh && ./PullRequest.sh ${BranchUpstream} ${UpstreamURL} ${BranchOrigin}")
             cleanWs()
             // sh """ curl -v -u 'duydoxuan':'duy@2708' -H "Content-Type:application/json" -X POST https://api.github.com/repos/duydoxuan/test-ray/pulls -d '{"title":"[new module] azure_rm_mysqldatabase", "body": "##### SUMMARY\nAdding support for Azure SQL Databases\n\n##### ISSUE TYPE\n - New Module Pull Request\n\n##### COMPONENT NAME\n\nazure_rm_sql_databases\n\n##### ANSIBLE VERSION\n\n 2.4\n\n##### ADDITIONAL INFORMATION\n\n", "head": "VSChina:azure_rm_mysqldatabase", "base": "master"}'"""
             } //dir block ff
