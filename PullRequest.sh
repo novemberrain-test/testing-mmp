@@ -17,6 +17,7 @@ git merge upstream/master
 mv ver.json ../ver.json.bak
 mv ../ver.json.pre ver.json
 # push code
+git remote set-url origin git@github.com:novemberrain-test/test-ray.git
 git add ver.json
 git commit -am "jenkins"
 git push origin
