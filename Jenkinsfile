@@ -177,7 +177,7 @@ def main(){
             ]
             //update file version.json
             writeJSON file: 'ver.json', json: jsonResult
-            withCredentials([usernamePassword(credentialsId: 'github', usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD')]) {
+            withCredentials([usernamePassword(credentialsId: 'de74115a-88ca-446e-aac1-fb8e0122f528', usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD')]) {
                 sh 'echo $PASSWORD'
                 echo USERNAME
                 echo "username is $USERNAME"
