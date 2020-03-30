@@ -154,8 +154,8 @@ def main(){
                         builder.content.projects.put(k,data)
             }               
         }
-        jsonResult = builder
-
+        jsonResult = builder.toPrettyString()
+        println jsonResult.getClass()
     }
 
     stage('Created PR'){
