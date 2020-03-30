@@ -157,7 +157,7 @@ def main(){
             dir('test-xray'){         
             //update file version.json                  
             sh "cp ${WORKSPACE}/PullRequest.sh ."
-            if(AddItem == true){
+            if(params.AddItem == true){
                 jsonResult = GetJsonfile().toString()
             }
             println jsonResult
