@@ -11,7 +11,7 @@ git clone https://${user_name}:${password}@github.com/novemberrain-test/test-ray
 git remote -v 
 # fetch latest code from upstream
 git fetch https://${user_name}:${password}@github.com/duydoxuan/test-ray.git master
-git merge origin/master
+git merge upstream/master
 #
 cd novemberrain-test && mv ver.json ver.json.bak
 mv ver.json.pre novemberrain-test/ver.json
