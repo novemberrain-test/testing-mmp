@@ -13,8 +13,8 @@ git remote -v
 git fetch https://${user_name}:${password}@github.com/duydoxuan/test-ray.git master
 git merge origin/master
 #
-mv ver.json ver.json.bak
-mv version.json ver.json
+cd novemberrain-test && mv ver.json ver.json.bak
+mv version.json novemberrain-test/ver.json
 # push code
 git add ver.json
 git commit -am "test"
