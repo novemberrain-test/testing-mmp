@@ -11,7 +11,7 @@ git push "https://${user_name}:${password}@github.com/novemberrain-test/test-ray
 # Create pull request
 curl -X POST --user "${user_name}:${password}"  -k \
   -d '{"title": "jenkins update sprint, version","head": "octocat:new-feature","base": "master"}' \
-  https://api.github.com/repos/garoudan/foo/pulls 
+  https://api.github.com/repos/duydoxuan/test-ray/pulls 
 
 
 
