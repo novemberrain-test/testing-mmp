@@ -183,7 +183,8 @@ if (params.AddItem == true){
                 ]]
             ]
             sh 'pwd'
-            sh 'git remote v-'
+            sh 'git remote -v'
+            sh 'git rev-parse --abbrev-ref HEAD'
             // try {
             //  withCredentials([usernamePassword(credentialsId: 'de74115a-88ca-446e-aac1-fb8e0122f528', usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD')]) {
             //     sh(script: " chmod 755 PullRequest.sh && ./PullRequest.sh ${PASSWORD} ${USERNAME} ")
