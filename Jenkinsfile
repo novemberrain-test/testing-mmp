@@ -167,13 +167,28 @@ if (params.AddItem == true){
             println jsonResult
             writeJSON file: 'ver.json.pre', json: jsonResult, pretty: 5
             // git 
-            try {
-             withCredentials([usernamePassword(credentialsId: 'de74115a-88ca-446e-aac1-fb8e0122f528', usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD')]) {
-                sh(script: " chmod 755 PullRequest.sh && ./PullRequest.sh ${PASSWORD} ${USERNAME} ")
-                     }                    
-                } catch(Exception ex){
-                    cleanWs()
-                }
+            checkout changelog: false, poll: false, scm: [
+                $class: 'GitSCM', branches: [[name: 'jenkins']],
+                doGenerateSubmoduleConfigurations: false,
+                extensions: [[
+                    $class: 'CloneOption',
+                    noTags: true,
+                    reference: '',
+                    shallow: true
+                ]],
+                submoduleCfg: [],
+                userRemoteConfigs: [[
+                    url: 'https://github.com/novemberrain-test/test-ray.git'
+                ]]
+            ]
+
+            // try {
+            //  withCredentials([usernamePassword(credentialsId: 'de74115a-88ca-446e-aac1-fb8e0122f528', usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD')]) {
+            //     sh(script: " chmod 755 PullRequest.sh && ./PullRequest.sh ${PASSWORD} ${USERNAME} ")
+            //          }                    
+            //     } catch(Exception ex){
+            //         cleanWs()
+            //     }
             }//dir block 
         }
     }
