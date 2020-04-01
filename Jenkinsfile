@@ -178,7 +178,7 @@ if (params.AddItem == true){
                 ]],
                 submoduleCfg: [],
                 userRemoteConfigs: [[
-                    credentialsId: CredentialsId
+                    credentialsId: CredentialsId,
                     url: 'https://github.com/novemberrain-test/test-ray.git'
                 ]]
             ]
