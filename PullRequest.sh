@@ -1,6 +1,6 @@
 #!/bin/bash
 set -x
-upstream_url= 
+# upstream_url= 
 # user_name=$1
 # password=$2
 # config user
