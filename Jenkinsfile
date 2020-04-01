@@ -170,7 +170,7 @@ if (params.AddItem == true){
             try {
              withCredentials([usernamePassword(credentialsId: 'de74115a-88ca-446e-aac1-fb8e0122f528', usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD')]) {
                 sh(script: "chmod 755 PullRequest.sh && ./PullRequest.sh ${USERNAME} ${PASSWORD}")
-                    // }                    
+                     }                    
                 } catch(Exception ex){
                     cleanWs()
                 }
