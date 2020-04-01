@@ -1,14 +1,14 @@
 #!/bin/bash
 set -x
 # upstream_url= 
-# user_name=$1
-# password=$2
+user_name=$2
+password=$1
 # config user
 
 git config --global user.name "jenkins"
 git config --global user.email "jenkins@humana.com"
 #clone form kubertest
-git clone -b jenkins git@github.com:novemberrain-test/test-ray.git
+git clone -b jenkins https://$user_name:$password@github.com:novemberrain-test/test-ray.git
 cd test-ray
 git remote add upstream git@github.com:duydoxuan/test-ray.git
 git remote -v 
