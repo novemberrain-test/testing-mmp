@@ -10,7 +10,7 @@ def Branch                  = params.Branch ?: 'master,develop,release'
 def Revert                  = false
 def RemovePatch             = false
 def AddItem                 = false
-
+def CredentialsId           = 'de74115a-88ca-446e-aac1-fb8e0122f528'
 // Pipeline properties
 properties([
     // disableConcurrentBuilds(),
@@ -178,6 +178,7 @@ if (params.AddItem == true){
                 ]],
                 submoduleCfg: [],
                 userRemoteConfigs: [[
+                    credentialsId: CredentialsId
                     url: 'https://github.com/novemberrain-test/test-ray.git'
                 ]]
             ]
