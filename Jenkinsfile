@@ -1,12 +1,12 @@
 #!/usr/bin/env groovy
-import groovy.json.*
+import groovy.json.JsonBuilder
+import groovy.json.JsonSlurper
 //54687fcf4b9c4f9da4847682b87fc1ff
 def Minor                   = params.Minor ?: '1'
 def Major                   = params.Major ?: '1'
-def AddPatch                = params.AddPatch ?: ''
-def AddRelease              = params.AddRelease ?: ''
+def AddPatch                = params.AddPatch ?: ''     // will be a string like "mmp,sprint" ~ "1.9.0,5"
+def AddRelease              = params.AddRelease ?: ''   // will be a string like "mmp,sprint" ~ "1.9.0,5"
 def Branch                  = params.Branch ?: 'master,develop,release'
-def dayOfWeekToStartSprint  = ''    // value to check so we can get the active_sprint value
 def Revert                  = false
 def RemovePatch             = false
 def AddItem                 = false
@@ -115,7 +115,7 @@ def updateSprintAndVersion (data){
 // }
 
 def main(){
-
+def jsonResult = ''
 if (params.AddItem == true){
     if(!params.AddPatch && !params.AddRelease){
         println "Please help to set either the params addrelase or the params addpath"
@@ -123,9 +123,6 @@ if (params.AddItem == true){
         return
     }
 }
-
-    def jsonResult = ''
-
 
     stage ("checkout"){
         node('master'){
@@ -141,8 +138,8 @@ if (params.AddItem == true){
                 builder.content.projects.each { key,value -> 
                     if(key.contains('release') && value.mmp[0] == Major ) {
                     builder.content.projects.remove(key)
+        }
     }
-}
             updated.each { k,v ->
                 if (k == "master" || k == "develop"){
                     builder.content.projects."${k}".mmp = updated."${k}"[0]

@@ -1,8 +1,10 @@
 #!/bin/bash
 set -x
+upstream_url= 
 # user_name=$1
 # password=$2
 # config user
+
 git config --global user.name "jenkins"
 git config --global user.email "jenkins@humana.com"
 #clone form kubertest
