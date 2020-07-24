@@ -1,7 +1,7 @@
 #!/usr/bin/env groovy
 import groovy.json.JsonBuilder
 import groovy.json.JsonSlurper
-//54687fcf4b9c4f9da4847682b87fc1ff
+
 def Minor                   = params.Minor ?: '1'
 def Major                   = params.Major ?: '1'
 def AddPatch                = params.AddPatch ?: ''     // will be a string like "mmp,sprint" ~ "1.9.0,5"
@@ -10,7 +10,7 @@ def Branch                  = params.Branch ?: 'master,develop,release'
 def Revert                  = false
 def RemovePatch             = false
 def AddItem                 = false
-def CredentialsId           = 'de74115a-88ca-446e-aac1-fb8e0122f528'
+def CredentialsId           = ''
 // Pipeline properties
 properties([
     // disableConcurrentBuilds(),
@@ -182,16 +182,6 @@ if (params.AddItem == true){
                     url: 'https://github.com/novemberrain-test/test-ray.git'
                 ]]
             ]
-            sh 'pwd'
-            sh 'git remote -v'
-            sh 'git rev-parse --abbrev-ref HEAD'
-            // try {
-            //  withCredentials([usernamePassword(credentialsId: 'de74115a-88ca-446e-aac1-fb8e0122f528', usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD')]) {
-            //     sh(script: " chmod 755 PullRequest.sh && ./PullRequest.sh ${PASSWORD} ${USERNAME} ")
-            //          }                    
-            //     } catch(Exception ex){
-            //         cleanWs()
-            //     }
             }//dir block 
         }
     }
